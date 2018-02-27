@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	font-size:12px;
+	font-family:宋体;
+	color:#505050;
+	}
+img{
+	border:0 none;
+	display:block;
+	}
+a,a:link{
+	color:#505050;
+	text-decoration:none;
+	}
+a:hover{
+	color:#505050;
+	text-decoration:none;
+	}
+ul,li{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	}
+p,h1,h2,h3,h4,em,dl,dd,dt{
+	margin:0;
+	padding:0;
+	font-style:normal;
+	font-weight:normal;
+	}
+.clear10{
+	clear:both;
+	height:10px;
+	}
+
+.bt01{ width:200px; border:1px solid #dddddd;}
+.bt01Bg{ background:url(../images/bt1Bg.gif); margin:1px; height:32px;}
+.bt01Bg h1{ color:#e50000; font-size:12px; line-height:30px; font-weight:bold; display:block; text-align:center; border-bottom:2px solid #e50000; float:left; padding:0 15px;}
+.bt01Con{ line-height:24px; padding:5px 10px;}
+
+.bt02{ width:200px; border:1px solid #dddddd;}
+.bt02Bg{ background:url(../images/bt2Bg.gif); margin:1px; height:30px;}
+.bt02Bg h1{ background:url(../images/bt2icon.gif) no-repeat 10px 10px; font-size:12px; line-height:30px; font-weight:bold; text-indent:26px;}
+.bt02Con{ line-height:24px; padding:5px 10px;}
+
+.bt03{ width:200px; border:1px solid #ffd477;}
+.bt03Bg{ background:url(../images/bt3Bg.gif); height:31px;}
+.bt03Bg h1{ background:url(../images/bt3icon.gif) no-repeat 10px 10px; font-size:12px; line-height:30px; font-weight:bold; text-indent:26px; color:#e23b00;}
+.bt03Con{ line-height:24px; padding:5px 10px;}
+
+.bt04{ width:200px; border:1px solid #c7dcc9;}
+.bt04Bg{ background:url(../images/bt4Bg.gif); margin:1px; height:28px;}
+.bt04Bg h1{ background:url(../images/bt4icon.gif) no-repeat 9px 8px; font-size:12px; line-height:28px; font-weight:bold; text-indent:26px; color:#2f7615;}
+.bt04Con{ line-height:24px; padding:5px 10px;}
+.bt4Bg_r{ background:url(../images/bt4Bg_R.gif) no-repeat; width:8px; height:8px; float:right;}
+
+.bt05{ width:200px; border:1px solid #dddddd;}
+.bt05Bg{ background:url(../images/bt5Bg.gif); height:30px; border-bottom:1px solid #dddbdc;}
+.bt05Bg h1{ color:#639e44; font-size:12px; line-height:30px; font-weight:bold; float:left;}
+.bt05Bg_L{ background:url(../images/bt5Bg_L.gif) no-repeat; width:12px; height:30px; float:left;}
+.bt05Bg_R{ background:url(../images/bt5Bg_R.gif) no-repeat; width:31px; height:30px; float:right; padding:0 18px 0 31px;}
+.bt05Con{ line-height:24px; padding:5px 10px;}
+
+.bt06{ width:200px; border:1px solid #dddddd;}
+.bt06Bg{ background:url(../images/bt6Bg.gif); height:30px; border-bottom:1px solid #dddbdc;}
+.bt06Bg h1{ color:#7d3fa0; font-size:12px; line-height:30px; font-weight:bold; float:left;}
+.bt06Bg_L{ background:url(../images/bt6Bg_L.gif) no-repeat; width:12px; height:30px; float:left;}
+.bt06Bg_R{ background:url(../images/bt6Bg_R.gif) no-repeat; width:31px; height:30px; float:right; padding:0 18px 0 31px;}
+.bt06Con{ line-height:24px; padding:5px 10px;}
+
+.bt07{ width:200px;}
+.bt07Bg{ border-top:2px solid #ca0000; background:#f5f5f5; height:32px; line-height:32px; text-indent:10px; color:#ca0000; font-size:12px; font-weight:bold;}
+
+.bt08{ width:200px;}
+.bt08Bg{ border-top:2px solid #0e6283; background:#f5f5f5; height:32px; line-height:32px; text-indent:10px; color:#0e6283; font-size:12px; font-weight:bold;}
+
+.bt09{ width:200px;}
+.bt09Bg{ background:#eeeeee; height:32px;}
+.bt09Bg_L{ background:#1f4ea0; height:32px; line-height:32px; text-align:center; color:#fff; font-weight:bold; font-size:12px; padding:0 18px; float:left;}
+
+.bt10{ width:200px; border:1px solid #dddddd;}
+.bt10Bg{ background:url(../images/bt10Bg.gif); margin:1px; height:27px;}
+.bt10Bg_L{ font-size:12px; line-height:27px; font-weight:bold; text-indent:15px; float:left; color:#fff;}
+.bt10Bg_R{ background:url(../images/bt10Bg_R.gif); width:43px; height:27px; float:right;}
+
+.bt11{ width:200px; border:1px solid #abc9ef;}
+.bt11Bg1{ background:url(../images/bt11Bg1.gif); height:29px;}
+.bt11Bg2{ background:url(../images/bt11Bg2.gif); height:29px; width:15px; float:left;}
+.bt11Bg4{ background:url(../images/bt11Bg4.gif); height:29px; width:15px; float:left;}
+.bt11Font{ float:left; padding:0 15px; color:#0661b4; font-weight:bold; font-size:12px; line-height:29px; height:29px; background:url(../images/bt11Bg3.gif);}
+.bt11Con{ line-height:24px; padding:5px 10px;}
+
+.bt12{ width:200px; border:1px solid #fd5401;}
+.bt12Bg_T1{ background:url(../images/bt12Bg_T1.gif); width:100%; height:5px;}
+.bt12Bg_T2{ background:url(../images/bt12Bg_T2.gif); width:188px; height:5px; margin:auto;}
+.bt12Bg{ background:url(../images/bt12Bg.gif); height:21px; line-height:18px; color:#fff;}
+.bt12Bg_L{ background:url(../images/bt12Bg_L.gif); width:25px; height:21px; float:left;}
+.bt12Bg_R{ background:url(../images/bt12Bg_R.gif); width:10px; height:21px; float:right;}
+
+.bt13{ width:200px;}
+.bt13Bg{ background:url(../images/bt13Bg.gif) #f1d93d; height:32px;}
+.bt13Bg_L{ background:url(../images/bt13Bg_L.gif)no-repeat #f1d93d; width:143px; height:32px; line-height:32px; float:left; text-indent:30px; color:#fff; font-weight:bold;}
+.bt13Bg_R1{ background:url(../images/bt13Bg_R1.gif); width:23px; height:32px; float:right;}
+.bt13Bg_R2{ background:url(../images/bt13Bg_R2.gif); width:10%; height:32px; float:right;}
+.bt13Bg_R3{ background:url(../images/bt13Bg_R3.gif); width:10px; height:32px; float:right;}
+
+.bt14{ width:200px; border:1px solid #d5d5d5;}
+.bt14Bg{ background:url(../images/bt14Bg.gif); margin:1px; height:26px; line-height:26px; color:#9830ae;}
+.bt14Bg_L{ background:url(../images/bt14Bg_L.gif); width:32px; height:26px; float:left;}
+
+.bt15{ width:200px; border:1px solid #d5d5d5;}
+.bt15Bg{ background:#fff; height:26px; line-height:26px; color:#fff;}
+.bt15Bg_L{ background:#2c2c2c; padding:0 20px; height:26px; float:left;}
+
+.bt16{ width:200px;}
+.bt16Bg{ border-bottom:1px solid #c8c8c8; height:28px;}
+.bt16Bg_L{ padding:0 20px; float:left; border-bottom:2px solid #9c661c; color:#9c661c; font-weight:bold; height:28px; line-height:28px; text-align:center;}
+
+.bt17{ width:200px;}
+.bt17Bg{ border-top:4px solid #000; border-bottom:1px solid #cccccc; color:#000; text-indent:5px; height:35px; line-height:35px; font-weight:bold;}
+
+.bt18{ width:200px;}
+.bt18Font{ background:url(../images/bt18Bg.gif); height:27px; text-align:center; color:#d61011; font-weight:bold; padding:0 15px 0 10px; line-height:27px; float:left;}
+.bt18Bg_L{ background:url(../images/bt18Bg_L.gif); width:8px; height:27px; float:left;}
+.bt18Bg_R{ background:url(../images/bt18Bg_R1.gif); width:10px; height:27px; float:left;}
+.bt18Bg{ background:#656565; height:27px;}
+
+
+

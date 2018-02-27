@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>支付宝支付 - ${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	setInterval("queryStatus()", 5000); 
+});
+function queryStatus() {
+	$.ajax({
+        url: "${base}/content/orderQuery.jspx?orderNumber=${orderNumber!}",
+        type: "POST",
+        dataType:"json",
+        data: "",
+        success: function (data) {
+            if (data.status==0) { //订单状态为0表示支付成功
+               alert("支付成功");
+               window.location.href = "${content.url!}"; 
+            }else if(data.status==1){
+            	//等待支付不处理
+            }else{
+            	//失败
+            	alert("<@s.m 'error.alipay.status.payfail'/>");
+            }
+        }
+    });
+} 
+</script>
+</head>
+<body>
+<div class="w1187b">
+    <div class="w1173">
+    <#if type??&&type==2>
+    	<iframe src="${base}/content/alipayInMobile.jspx?contentId=${content.id!}&orderNumber=${orderNumber!}&rewardAmount=${rewardAmount!}"  width="0px" height="0px" frameborder="0" scrolling="no"></iframe>
+	 <#else>
+	    <iframe src="${base}/content/alipayInMobile.jspx?contentId=${content.id!}&orderNumber=${orderNumber!}"  width="0px" height="0px" frameborder="0" scrolling="no"></iframe>
+	 </#if>
+	</div>
+</div>
+</body>
+</html>

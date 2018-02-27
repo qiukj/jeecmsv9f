@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.plug.store.entity">
+	<class
+		name="PlugStoreConfig"
+		table="jc_plug_store_config"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		
+		<id name="id" type="java.lang.Integer" column="config_id"><generator class="assigned"/></id>
+
+		<property
+			name="serverUrl"
+			column="server_url"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="password"
+			column="password"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+	</class>	
+</hibernate-mapping>

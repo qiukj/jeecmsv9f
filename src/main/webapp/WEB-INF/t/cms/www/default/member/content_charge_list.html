@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+</head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="member-con">
+  <div class="m-pos"><a href="${base}/">首页</a> > <span>会员中心</span></div>
+  <div class="member clearfix">
+    <div class="memberLeft clearfix"> 
+      <div class="member-nav">
+        <ul>
+        <li><a href="${base}/member/index.jspx">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
+        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
+        <li><a href="${base}/member/account.jspx" class="on">服务中心</a></li>
+        </ul>
+      </div>
+      <div class="member-main">
+        <div class="member-child"><a href="${base}/member/account.jspx">完善账户资料</a><a href="${base}/member/buy_list.jspx">消费记录</a><a href="${base}/member/order_list.jspx">我的订单</a><a href="${base}/member/charge_list.jspx" class="on">收益统计</a><a href="${base}/member/draw_list.jspx">提现申请</a><a href="${base}/member/weixin_auth_enter.jspx">微信授权</a></div>
+        <div class="member-text tggl">
+          <form id="tableForm" action="charge_list.jspx" method="post">
+          <div class="sytj">
+            <select name="orderBy" class="member-change" style="height:28px; float:left;">
+              <option value="1" [#if orderBy==1]selected="selected"[/#if]>总收益倒序</option>
+              <option value="2" [#if orderBy==2]selected="selected"[/#if]>总收益升序</option>
+              <option value="3" [#if orderBy==3]selected="selected"[/#if]>年收益倒序</option>
+              <option value="4" [#if orderBy==4]selected="selected"[/#if]>年收益升序</option>
+              <option value="5" [#if orderBy==5]selected="selected"[/#if]>月收益倒序</option>
+              <option value="6" [#if orderBy==6]selected="selected"[/#if]>月收益升序</option>
+              <option value="7" [#if orderBy==7]selected="selected"[/#if]>日收益倒序</option>
+              <option value="8" [#if orderBy==8]selected="selected"[/#if]>日收益升序</option>
+              <option value="9" [#if orderBy==9]selected="selected"[/#if]>收费金额倒序</option>
+              <option value="10" [#if orderBy==10]selected="selected"[/#if]>收费金额升序</option>
+            </select>
+            <input type="submit" value="查询">
+          </div>
+          [#if pagination.list?size gt 0]
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                <td class="tggl-top">内容</td><td class="tggl-top">收费金额</td><td class="tggl-top">总收益</td><td class="tggl-top">今年收益</td><td class="tggl-top">本月收益</td><td class="tggl-top">本日收益</td>
+              </tr>
+              [#list pagination.list as c]
+              <tr>	
+                <td><a href="${c.content.url!}">${c.content.title?html}</a></td>
+                <td>${c.chargeAmount!}</td>
+                <td>${c.totalAmount!}</td>
+                <td>${c.yearAmount!}</td>
+                <td>${c.monthAmount!}</td>
+                <td>${c.dayAmount!}</td>
+              </tr>
+              [/#list]
+              <tr>
+                <td colspan="8" style="padding:20px 0;">
+                  <input type="hidden" name="pageNo"/>
+		          <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center" class="pn-sp">
+		                共 ${pagination.totalCount} 条&nbsp;
+		                每页 ${pagination.pageSize} 条&nbsp;
+		                <input type="button" value="首 页" onclick="_gotoPage('1');"[#if pagination.firstPage] disabled="disabled"[/#if]/>
+		                <input type="button" value="上一页" onclick="_gotoPage('${pagination.prePage}');"[#if pagination.firstPage] disabled="disabled"[/#if]/>
+		                <input type="button" value="下一页" onclick="_gotoPage('${pagination.nextPage}');"[#if pagination.lastPage] disabled="disabled"[/#if]/>
+		                <input type="button" value="尾 页" onclick="_gotoPage('${pagination.totalPage}');"[#if pagination.lastPage] disabled="disabled"[/#if]/>&nbsp;
+		                当前 ${pagination.pageNo}/${pagination.totalPage} 页 &nbsp;转到第<input type="text" id="_goPs" onfocus="this.select();" onkeypress="if(event.keyCode==13){$('#_goPage').click();return false;}" style="width:50px; border:1px solid #e7e7e7;"/>页
+		                <input id="_goPage" type="button" value="转" onclick="_gotoPage($('#_goPs').val());"[#if pagination.totalPage==1] disabled="disabled"[/#if] />
+		            </td>
+		            </tr>
+		            </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <script type="text/javascript">
+            function _gotoPage(pageNo) {
+                try{
+                    var tableForm = document.getElementById("tableForm");
+                    $("input[name=pageNo]").val(pageNo);
+                    tableForm.action="charge_list.jspx";
+                    tableForm.onsubmit=null;
+                    tableForm.submit();
+                } catch(e) {
+                    alert('_gotoPage(pageNo)方法出错');
+                }
+            }
+            </script>
+            [#else]
+                <div>暂无收费内容</div>
+            [/#if]
+            </form>
+        </div>
+      </div>
+    </div>
+    [#include "../include/member-right.html" /]
+    <div class="m-sj"></div>
+  </div>
+</div>
+[#include "../include/footer.html"/]
+</body>
+</html>

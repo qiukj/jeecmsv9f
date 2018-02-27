@@ -1,0 +1,60 @@
+[#--
+栏目翻页样式
+pageClass: 翻页DIV class
+pageStyle: 翻页DIV style
+currPageClass:当前页码class
+norPageClass:其他页码class
+--]
+[#assign n=5/]
+[#assign m=3/]
+[#assign b=2/]
+[#assign p=tag_pagination/]
+<div[#if pageClass??] class="${pageClass}"[/#if][#if pageStyle??] style="${pageStyle}"[/#if]>
+[#if p.totalPage gte n]
+		[#if p.pageNo lte m]
+			[#list 1..n as page]
+			<a [#if page==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${page}${hrefLatter}');">${page!}</a>&nbsp;
+			[/#list]
+			...
+			<a [#if p.totalPage==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${p.totalPage}${hrefLatter}');">${p.totalPage!}</a>&nbsp;
+		[#elseif p.pageNo>p.totalPage-m]
+			<a [#if 1==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}${hrefLatter}');">1</a>&nbsp;
+			...
+			[#list p.totalPage-n+1..p.totalPage as page]
+				<a [#if page==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${page}${hrefLatter}');">${page!}</a>&nbsp;
+			[/#list]
+		[#else]
+			<a [#if 1==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}${hrefLatter}');">1</a>&nbsp;
+			...
+			[#list p.pageNo-b..p.pageNo+b as page]
+				<a [#if page==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${page}${hrefLatter}');">${page!}</a>&nbsp;
+			[/#list]
+			...
+			<a [#if p.totalPage==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${p.totalPage}${hrefLatter}');">${p.totalPage!}</a>&nbsp;
+		[/#if]
+[#else]
+	[#list 1..p.totalPage as page]
+		<a [#if page==p.pageNo]class="currPageClass"[#else]class="norPageClass"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${page}${hrefLatter}');">${page!}</a>&nbsp;
+	[/#list]
+[/#if]
+<script type="text/javascript">
+	function goPage(){
+		var page=$("#pageNo").val();
+		if(page!=""){
+			location.href=encodeURI('${hrefFormer}_'+page+'${hrefLatter}');
+		}
+	}
+	$(function() {
+		$("#pageNo").bind("keydown",function(e){
+	        // 兼容FF和IE和Opera    
+			var theEvent = e || window.event;    
+			var code = theEvent.keyCode || theEvent.which || theEvent.charCode;  
+			if (code == 13) {  
+			  //回车
+				goPage();
+		    }    
+		});
+	});
+</script>
+<input id="pageNo" size="2"/><input type="button" value="go" onclick="goPage()" />
+</div>

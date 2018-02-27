@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>${channel.title!channel.name} - ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="keywords" content="${channel.keywords!}"/>
+<meta http-equiv="description" content="${channel.description!}"/>
+
+<link href="/${mobileRes!}/css/pic/public.css" rel="stylesheet" type="text/css"/>
+<link href="/${mobileRes!}/css/pic/share.css" rel="stylesheet" type="text/css"/>
+<script src="/${mobileRes!}/js/focus/TouchSlide.1.1.js"></script>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript">
+$(function() {
+	Cms.channelViewCount("${base}","${channel.id}");
+	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+</head>
+
+<body>
+<div id="wrap" class="clearfix overflow mg-auto"> 
+	[#include "../include/header_lanmu.html"/]   
+	<div class="i-title clearfix area border">
+        <h2>${channel.name!}</h2>
+    </div>
+    <div class="clearfix">
+        <div class="clearfix tab-con2">
+            <ul class="clearfix">
+            	[@cms_content_page count='20' orderBy='4' channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd']
+            	[#list tag_pagination.list as a]
+                <li>
+                    
+                    <a href="${a.mobileUrl!}" class="tab-con-href2 clearfix">
+                        [#if a.typeImg??]
+                        <div class="img3"><img src="${a.typeImg!site.typeImg}" /></div>
+                        <h4>[@text_cut s=a.title /]</h4>
+                        <p><i>(${a.date?string(dateFormat)})</i></p>
+                        [#else]
+                        <h4 style="width:100%;">[@text_cut s=a.title /]</h4>
+                        <p style="width:100%;"><i>(${a.date?string(dateFormat)})</i></p>
+                        [/#if]
+                    </a>     
+                                  
+            	</li>
+                [/#list]
+                <div style="clear:both; height:20px;"></div>
+                <div class="pagesite">
+                [@cms_pagination sysPage='1'/]
+                </div>
+                [/@cms_content_page]
+            </ul>
+        </div>       
+    <!-- <div class="i-more">
+    <a href="#">查看更多分类</a>
+    </div>-->
+    </div>
+
+ 	[#include "../include/footer.html"/] 
+</div>
+<script src="/${mobileRes!}/js/focus/foot.js"></script>
+</body>
+</html>

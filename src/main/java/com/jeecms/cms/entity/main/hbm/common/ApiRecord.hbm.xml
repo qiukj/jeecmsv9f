@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.main">
+	<class
+		name="ApiRecord"
+		table="jc_api_record"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="java.lang.Long"
+			column="id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="callIp"
+			column="call_ip"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="callTime"
+			column="api_call_time"
+			type="timestamp"
+			not-null="true"
+			length="19"
+		/>
+		<property
+			name="callTimeStamp"
+			column="call_time_stamp"
+			type="java.lang.Long"
+			not-null="true"
+			length="19"
+		/>
+		<property
+			name="sign"
+			column="sign"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<many-to-one
+			name="apiAccount"
+			column="api_account"
+			class="ApiAccount"
+			not-null="true"
+		>
+		</many-to-one>
+		<many-to-one
+			name="apiInfo"
+			column="api_info_id"
+			class="ApiInfo"
+			not-null="false"
+		>
+		</many-to-one>
+
+
+	</class>	
+</hibernate-mapping>

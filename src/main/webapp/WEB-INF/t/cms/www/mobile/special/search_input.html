@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>全文检索 - ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="/${mobileRes!}/css/pic/public.css" rel="stylesheet" type="text/css"/>
+<link href="/${mobileRes!}/css/pic/share.css" rel="stylesheet" type="text/css"/>
+<script src="/${mobileRes!}/js/focus/jquery-1.9.1.min.js"></script>
+<script src="/${mobileRes!}/js/focus/TouchSlide.1.1.js"></script>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+
+</head>
+
+<body>
+<div id="wrap" class="clearfix overflow mg-auto">
+	<!--导航栏开始-->
+	<div class="apply-nav overflow mg-auto area" style="background:#fff;">
+        <div class="overflow clearfix apply-top border-bom">
+            <a href="${base!}/" class="apply-return">返回</a>
+            <h2>全文检索</h2>
+            <a href="${base}/login.jspx?returnUrl=${location}" class="apply-login2">登录</a>
+            <a href="#" class="apply-pup">导航</a>
+        </div>
+        <div class="i-icon mg-auto overflow area clearfix" id="apply-pup-icon">
+            <nav id="menu2" class="nd-nav">
+                <ul class="first">
+                    <li class="menu1"><a href="${base}/">首页</a></li>
+                    <li class="menu2">[@cms_channel id='1']<a href="${tag_bean.mobileUrl!}">新闻</a>[/@cms_channel]</li>
+                    <li class="menu3">[@cms_channel id='42']<a href="${tag_bean.mobileUrl!}">图库</a>[/@cms_channel]</li>
+                    <li class="menu4">[@cms_channel id='46']<a href="${tag_bean.mobileUrl!}">视频</a>[/@cms_channel]</li>
+                    <li class="menu5">[@cms_channel id='9']<a href="${tag_bean.mobileUrl!}">下载</a>[/@cms_channel]</li>
+                </ul>
+                
+                <ul>
+                    <li class="menu1">[@cms_channel id='64']<a href="${tag_bean.mobileUrl!}">文库</a>[/@cms_channel]</li>
+                    <li class="menu2">[@cms_channel id='60']<a href="${tag_bean.mobileUrl!}">调查</a>[/@cms_channel]</li>
+                    <li class="menu3">[@cms_channel id='61']<a href="${tag_bean.mobileUrl!}">招聘</a>[/@cms_channel]</li>
+                    <li class="menu4"><a href="${base}/guestbook.jspx" target="blank">留言板</a></li>
+                    <li class="menu5"><a href="http://bbs.jeecms.com/" target="_blank">论坛</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script type="text/javascript" src="/${mobileRes!}/js/navi/com.js"></script>
+    <!--导航栏结束-->
+    
+    <div class="about-con-main" style="height:300px;">
+        <div class="res" style="margin-top:25px;">
+            <form action="${base}/search.jspx" target="_blank" id="searchForm">
+            <input name="q" value="${oldq!'关键字'}" type="text" onfocus="if(this.value=='关键字')this.value=''"  onkeypress="qkeypress()" onblur="if(this.value=='')this.value='关键字'"  maxlength="50" autocomplete="off" class="pxui-select" / style="width:50%;">
+            <input type="submit" value="  搜  索   " class="pxui-light-button" style="color:#fff;">
+            </form>
+        </div>
+	</div>
+    
+	[#include "../include/footer.html"/]
+</div>
+</body>
+</html>

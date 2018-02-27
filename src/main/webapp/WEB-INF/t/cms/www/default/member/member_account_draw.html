@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>申请提现 - ${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="../../${res}/css/member.css" />
+<link rel="stylesheet" type="text/css" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+	selectPlat();
+});
+function selectPlat(){
+	var plat=$("input[name='drawAccount']:checked").val();
+	if(plat==0){
+		$("input[name='accountWeiXin']").parent().parent().show();
+		$("input[name='accountAlipy']").parent().parent().hide();
+	}else{
+		$("input[name='accountWeiXin']").parent().parent().hide();
+		$("input[name='accountAlipy']").parent().parent().show();
+	}
+}
+</script>
+</head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="member-con">
+  <div class="m-pos"><a href="${base}/">首页</a> > <span>会员中心</span></div>
+  <div class="member clearfix">
+    <div class="memberLeft clearfix"> 
+      <div class="member-nav">
+        <ul>
+        <li><a href="${base}/member/index.jspx">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
+        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
+        <li><a href="${base}/member/account.jspx" class="on">服务中心</a></li>
+        </ul>
+      </div>
+      <div class="member-main">
+        <div class="member-child"><a href="${base}/member/account.jspx">完善账户资料</a><a href="${base}/member/buy_list.jspx">消费记录</a><a href="${base}/member/order_list.jspx">我的订单</a><a href="${base}/member/charge_list.jspx">收益统计</a><a href="${base}/member/draw_list.jspx" class="on">提现申请</a><a href="${base}/member/weixin_auth_enter.jspx">微信授权</a></div>
+        <div class="member-text tggl">
+          <div class="txsq">
+            <div><span class="zhye">账户余额： <em>${userAccount.contentNoPayAmount!}</em></span></div>
+            <div><span class="zsr">总收入： <em>${userAccount.contentTotalAmount!}</em></span>|<span class="nsr">年收入： <em>${userAccount.contentYearAmount!}</em></span>|<span class="ysr">月收入： <em>${userAccount.contentMonthAmount!}</em></span>|<span class="rsr">日收入： <em>${userAccount.contentDayAmount!}</em></span></div>
+            <div><span class="txcs">成功提现次数： <em>${userAccount.drawCount!}</em></span><span class="txsj">上次提现时间： <em>${userAccount.lastDrawTime!}</em></span></div>
+            <div><span class="gmcs">被购买次数： <em>${userAccount.contentBuyCount!}</em></span>[#if userAccount.lastBuyTime??]<span class="gmsj">最近被购买时间： <em>${userAccount.lastBuyTime?string("yyyy-MM-dd HH:mm:ss")}</em></span>[/#if]</div>
+          </div>
+          <div class="txsq-nav"><a href="${base}/member/draw_list.jspx">申请列表</a><a href="${base}/member/draw.jspx" class="on">发起申请</a></div>
+          <form id="jvForm" action="draw.jspx" method="post">
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              [#if userAccount??]
+              <tr>
+                <td class="tggl-top" width="100">可申请提现金额</td><td style="padding-left:30px; text-align:left;">${maxDrawAmount!}</td>
+              </tr>
+              <tr>
+                <td class="tggl-top">提现金额</td>
+                <td style="padding:10px 0 10px 30px; text-align:left;"><input type="text" name="drawAmout" vld="{required:true,number:true,min:${minDrawAmount!},max:${maxDrawAmount!}}"  maxlength="100" class="member-change" style="height:28px;" /></td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align:center; padding:20px 0;"><input type="hidden" name="nextUrl" value="draw_list.jspx"/><input type="submit" class="member-submit" value="提交"><input type="reset" class="member-reset" value="重置"></td>
+              </tr>
+              [#else]
+              <tr>
+              <td height="25" colspan="2" align="center">
+         	<a href="${base}/member/account.jspx">未找到账户，先完善账户资料</a>
+	      </td>
+              </tr>
+              [/#if]
+            </tbody>
+          </table>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="memberRight">
+      <div class="memberImg">[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/${res}/images/userImg.jpg">[/#if]</div>
+      <div class="memberName">您好，<span>${user.username}</span></div>
+      <div class="memberOut"><a href="logout.jspx?returnUrl=/">退出</a></div>
+    </div>
+    <div class="m-sj"></div>
+  </div>
+</div>
+[#include "../include/footer.html"/]
+</body>
+</html>

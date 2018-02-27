@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${channel.title!channel.name} - ${site.name} - Powered by JEECMS</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+	Cms.channelViewCount("${base}","${channel.id}");
+	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+function g(o){
+	return document.getElementById(o);
+}
+function HoverLi(x,y,m,n,counter){
+	for(var i=1;i<=counter;i++){
+		g(x+m+i).className='normaltab';
+		g(y+m+i).className='undis';
+	}
+	g(y+m+n).className='dis';
+	g(x+m+n).className='curr';
+}
+</script>
+
+<head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="main container clearfix">
+  <section class="message_w860">
+    <h1>发表留言</h1>
+    <div class="message_inf">
+      <div class="line"></div>
+      <p><span>类别</span><select>
+      <option value= "" >请选择职位</option>
+      <option value= "http://www.baidu.com "  >---百度---</option>
+      </select></p>
+      <p><span>邮箱</span><input type="text" class="message_email"><span>手机号</span><input type="text" class="message_phone"><span style="width:auto;">QQ</span><input type="text" class="message_qq"></p>
+      <div class="line"></div>
+      <p><span>标题</span><input type="text" class="message_title"></p>
+      <p><span>内容</span><textarea class="message_txt"></textarea></p>
+      <p><span>验证码</span><input type="text" class="message_code"><img src="/${res}/images/code.gif"></p>
+      <p style="margin-top:30px; position:relative;"><input type="submit" class="message_btn" value="发表留言"><a class="tolist">查看留言列表</a></p>
+    </div>
+  </section>
+  <section class="w310">
+    <section class="tag clearfix">
+      <div class="tag-nav"><h1><a>大家都在搜</a></h1><a class="change" id="changeTag"><i></i>换一批</a></div>
+      <div class="tagList">
+        <div style="" class="cTag">
+        [@cms_searchword_list word='' siteId='1' recommend='2' orderBy='4' count='5']
+	        [#list tag_list as word]
+		     <a href="${base}/search.jspx?q=${word.name!}">${word.name!}</a>
+	        [/#list]
+		[/@cms_searchword_list]
+        </div>
+      </div>
+
+    </section>
+    <section class="tag issue clearfix">
+      <div class="tag-nav"><h1><a>热门话题</a></h1></div>
+      <div class="item clearfix" style="border-top:none;">
+        <a class="img"><img src="/${res}/images/issue01.jpg"></a>
+        <h2><a>习近平：坚持人民防空为人民</a></h2>
+        <div class="issue-comment">评论  (35637)</div>
+      </div>
+      <div class="item clearfix">
+        <a class="img"><img src="/${res}/images/issue02.jpg"></a>
+        <h2><a>2015年各行业年平均工资出炉 你达标了吗</a></h2>
+        <div class="issue-comment">评论  (7851)</div>
+      </div>
+      <div class="item clearfix">
+        <a class="img"><img src="/${res}/images/issue03.jpg"></a>
+        <h2><a>张北回应“天路”收费：合不合法要领导答</a></h2>
+        <div class="issue-comment">评论  (13467)</div>
+      </div>
+      <div class="item clearfix">
+        <a class="img"><img src="/${res}/images/issue04.jpg"></a>
+        <h2><a>商品房土地到期 超八成网友认为“不应”再交钱</a></h2>
+        <div class="issue-comment">评论  (378946)</div>
+      </div>
+      <div class="item clearfix">
+        <a class="img"><img src="/${res}/images/issue05.jpg"></a>
+        <h2><a>柳岩不是最惨的，闹伴娘这事会蹲监狱</a></h2>
+        <div class="issue-comment">评论  (2456)</div>
+      </div>
+    </section>
+  </section>
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

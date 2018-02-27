@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>评论页 - ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="keywords" content="${content.tagStr!}"/>
+<meta http-equiv="description" content="${content.description!}"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+$(function() {
+  Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+  Cms.viewCount("${base}","${content.id}");
+  Cms.siteFlow("${base}", location.href, document.referrer);
+});
+</script>
+</head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+    <section class="content_w850">
+	<h1>评论主题: <a href="${content.url}" target="_blank">${content.title}</a></h1>
+        <div class="content-inf">发布时间：${content.releaseDate}&nbsp;&nbsp;作者：${content.author!'本站编辑'}&nbsp;&nbsp;来源：${content.origin!'本站原创'}&nbsp;&nbsp;浏览次数：<span id="views"></span>  </div>
+   <section class="comments-list" style="margin-top:20px;">
+  <h1><span>用户评论</span></h1>
+  [@cms_comment_page contentId=contentId count='15' checked='1']
+  [#if tag_pagination.list?size = 0]
+  <span>暂无相关评论！</span>
+  [#else]
+  [#list tag_pagination.list as c]
+  <div class="comments-item">
+    <div class="tx">
+    <img src="${(c.commentUser.userImg)!'${site.defImg!}'}">
+    </div>
+    <div class="rig">
+      <div class="rig-top"><a class="username">[#if c.commentUser??]${(c.commentUser.username)!"匿名网友"}[#else]匿名网友[/#if]</a><em> ${c.createTime} </em></div>
+      <div class="rig-txt">${c.textHtml!}</div>
+      <div class="rig-bottom">
+	     <a class="comments-zan" onclick="Cms.commentUp('${base}',${c.id},${c.ups},'commentups_${c.id}')">赞<span id="commentups_${c.id}">${c.ups!}</span></a>
+		 <!--
+		 <span class="commentdown" onclick="Cms.commentDown('${base}',${c.id},${c.downs},'commentdowns_${c.id}')">踩</span>
+		 <span id="commentdowns_${c.id}">${c.downs!}</span>
+                 -->
+      	 <a class="comments-hf" id="commentreply_${c.id}" onclick="Cms.commentInputLoad('${base}','commentInputDiv_','commentInputDiv_${c.id}','${contentId!}','${c.id}')">回复</a>
+	   </div>	
+	   <div id="commentInputDiv_${c.id}"></div>
+      [#if c.replyCount>0]
+      <div class="comments-item comments-child">
+	    <div class="tx"><img src="[#if c.replayUser??]${(c.replayUser.userImg)!'${site.defImg!}'}[#else]'${site.defImg!}'[/#if]"></div>
+	    <div class="rig">
+	      <div class="rig-top"><a class="username">[#if c.replayUser??]${(c.replayUser.username)!"管理员"}[#else]管理员[/#if]</a>
+		  <em>[#if c.replayTime??]${c.replayTime?string("yyyy-MM-dd HH:mm:ss")}[/#if]</em></div>
+	      <div class="rig-txt">${c.replayHtml!}</div>
+	      <div class="rig-bottom">
+	      		 <a class="comments-zan" onclick="Cms.commentUp('${base}',${c.id},${c.ups},'commentups_${c.id}')">赞<span id="commentups_${c.id}">${c.ups!}</span></a>
+  				 
+  				 <span class="commentdown" onclick="Cms.commentDown('${base}',${c.id},${c.downs},'commentdowns_${c.id}')">踩</span>
+  				 <span id="commentdowns_${c.id}">${c.downs!}</span>
+		      	 <span id="commentreply_${c.id}" onclick="Cms.commentInputLoad('${base}','commentInputDiv_','commentInputDiv_${c.id}','${contentId!}','${c.id}')">回复</span>
+				  [#if c.replyCount>0]
+				  <span id="commentviewreply_${c.id}" onclick="Cms.commentListMore('${base}','commentDialog',{parentId:${c.id},contentId:${contentId!},orderBy:0,count:5,checked:1})">查看回复(${c.replyCount!})</span>
+				  [/#if]
+				  <div id="commentInputDiv_${c.id}"></div>
+	      </div>
+	      <div class="reply"><textarea class="reply-text"></textarea><div><input type="submit" value="回复" class="reply-btn"></div></div>
+	    </div>
+    </div>
+    [/#if]
+    </div>
+  </div>
+[/#list]
+  <div class="pagebar">[@cms_pagination sysPage='1'/]</div>			
+  [/#if]
+  [/@cms_comment_page]
+  <div id="commentDialog" style="display:none;"></div>
+  
+<script type="text/javascript">
+			$(function() {
+				$("#commentDialog").dialog({
+					autoOpen: false,
+					modal: true,
+					width: 500,
+					height: 600,
+					position: ["center",20],
+					buttons: {
+						"关闭": function() {
+							$(this).dialog("close");
+						}
+					},
+					close: function(event, ui) {
+						
+					}
+				});
+			});
+			</script>
+</section>
+[#include "../content/inc_comment_input.html"/]
+</section>
+  [#include "../include/right310.html"/]
+  </div>  
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

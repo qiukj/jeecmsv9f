@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd"
+	default-lazy-init="false">
+	
+	<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"> 
+		<property name="corePoolSize" value="10" /> 
+		<property name="maxPoolSize" value="100" /> 
+		<property name="queueCapacity" value="500" />
+	</bean>
+	<!--每日任务(内容相关) -->
+	<bean id="contentDayJob" class="com.jeecms.cms.task.job.ContentDayJob"></bean>
+	<bean id="contentDayJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="contentDayJob" />
+		<property name="targetMethod" value="execute" />
+	</bean>
+	<bean id="contentDayJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="contentDayJobDetail" />
+		<property name="cronExpression" value="0 0 0 * * ?" />
+	</bean>
+	<bean id="siteDayJob" class="com.jeecms.cms.task.job.SiteDayJob"></bean>
+	<bean id="siteDayJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="siteDayJob" />
+		<property name="targetMethod" value="execute" />
+	</bean>
+	<bean id="siteDayJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="siteDayJobDetail" />
+		<property name="cronExpression" value="0 0 0 * * ?" />
+	</bean>
+	<!-- 每日爬虫 -->
+	<bean id="spiderJob" class="com.jeecms.cms.task.job.SpiderJob"></bean>
+	<bean id="spiderJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="spiderJob" />
+		<property name="targetMethod" value="execute" />
+	</bean>
+	<bean id="spiderJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="spiderJobDetail" />
+		<property name="cronExpression" value="0 42 18 * * ?" />
+	</bean>
+	<!-- 调度器 -->
+    <bean name="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
+       <!-- 通过applicationContextSchedulerContextKey属性配置spring上下文 -->    
+        <property name="applicationContextSchedulerContextKey">    
+            <value>applicationContext</value>    
+        </property>   
+        <property name="triggers">  
+			<list>   
+				<ref bean="contentDayJobTrigger" /> 
+				<ref bean="siteDayJobTrigger" />
+				<ref bean="spiderJobTrigger" />
+			</list> 
+		</property> 
+    	<property name="taskExecutor" ref="executor" /> 
+   	</bean> 
+    <!--加载数据库任务-->
+    <bean id="loadTask" class="com.jeecms.cms.task.LoadTask" init-method="loadTask" />
+    
+</beans>

@@ -1,0 +1,43 @@
+[#if site.config.qqEnable]
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc.js#appId=${site.config.qqID!}" charset="utf-8"></script>
+[/#if]
+[#if site.config.sinaEnable]
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=${site.config.sinaID!}" type="text/javascript" charset="utf-8"></script>
+[/#if]
+[#if site.config.qqWeboEnable]
+<script type="text/javascript" src="http://mat1.gtimg.com/app/openjs/openjs.js"></script>
+[/#if]
+<script type="text/javascript">
+$(function() {
+	//优先执行第三方退出 在执行本地退出
+   $('#logout').click(function () {
+          [#if site.config.qqEnable]
+              //退出qq
+               if(QC.Login.check()){
+                     QC.Login.signOut();
+                }
+          [/#if]
+          [#if site.config.sinaEnable]
+             if(WB2.checkLogin()){
+                WB2.logout(function() {
+		    		//callback function
+	          	});
+             }
+          [/#if]
+          [#if site.config.qqWeboEnable]
+	         T.init({
+	   		    appkey: ${site.config.qqWeboID!}
+	   	     });
+            if(T.loginStatus()){
+            	T.logout(function (loginStatus) { // 登出用户
+            	    // 登录成功
+            	});
+            }
+         [/#if]
+         location="${base}/logout.jspx?returnUrl=/";
+  });
+});
+</script>
+[#if user??]<div class="login-user"><a>[#if user.userImg??]<img src="${user.userImg}">[#else]<img src="/${res}/images/userImg.png">[/#if]${user.username}</a><div class="user-child"><a href="${base}/member/index.jspx">会员中心</a><a id="logout" >退出账号</a></div></div>[#else]
+      <div class="login"><a class="tc" href="${base}/login.jspx">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="${base}/register.jspx">注册</a></div>
+[/#if]

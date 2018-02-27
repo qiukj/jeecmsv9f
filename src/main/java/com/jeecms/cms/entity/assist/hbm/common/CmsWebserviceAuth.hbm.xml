@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.assist">
+	<class
+		name="CmsWebserviceAuth"
+		table="jc_webservice_auth"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="integer"
+			column="auth_id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="username"
+			column="username"
+			type="string"
+			not-null="true"
+			length="50"
+		/>
+		<property
+			name="password"
+			column="password"
+			type="string"
+			not-null="true"
+			length="50"
+		/>
+		<property
+			name="system"
+			column="system"
+			type="string"
+			not-null="true"
+			length="100"
+		/>
+		<property
+			name="enable"
+			column="is_enable"
+			type="boolean"
+			not-null="true"
+		/>
+	
+
+		<set name="webserviceCallRecords" inverse="true" lazy="true">
+			<cache usage="read-write"/>
+			<key column="auth_id"/>
+			<one-to-many class="CmsWebserviceCallRecord"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<div class="page-small">
+    [#assign p=pagination/]  
+      <div style="display:inline-block;">
+     [#if p.firstPage][#else]<a href="#" class="prev-page" onclick="location.href=encodeURI('${hrefFormer}[#if p.prePage gt 1]_${p.prePage}[/#if]${hrefLatter}');"></a>[/#if]
+      [#if p.pageNo lte 3]
+      [#if p.totalPage gt 3]
+      [#list 1..3 as i]
+      <a [#if i==p.pageNo]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${i}${hrefLatter}');">${i}</a>
+      [/#list]
+      <a class="none">...</a><a [#if i==p.pageNo]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${p.totalPage}${hrefLatter}');">${p.totalPage}</a>
+      [#else]
+	[#list 1..p.totalPage as i]
+		<a [#if i==p.pageNo]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${i}${hrefLatter}');">${i}</a>
+	[/#list]
+      [/#if]
+      [#else]
+[#assign first=p.pageNo-2/]
+[#assign last=p.pageNo/]
+      <a class="Num" href="#" onclick="location.href=encodeURI('${hrefFormer}_1${hrefLatter}');">1</a>
+      [#if first gt 2]<a class="Num none">...</a>[/#if]
+      [#list first..last as i]
+	<a [#if i==p.pageNo]class="Num on"[#else]class="Num"[/#if] href="#" onclick="location.href=encodeURI('${hrefFormer}_${i}${hrefLatter}');">${i}</a>
+      [/#list]
+      [#if p.totalPage!=p.pageNo]
+       [#if last lt p.totalPage-1]<a class="none">...</a>[/#if]
+     <a class="Num " href="#" onclick="location.href=encodeURI('${hrefFormer}_${p.totalPage}${hrefLatter}');">${p.totalPage}</a>
+         [/#if]
+      [/#if]  
+      [#if p.lastPage][#else]<a class="next-page" href="#" onclick="location.href=encodeURI('${hrefFormer}_${p.nextPage}${hrefLatter}');"></a>[/#if]
+      </div>
+</div>

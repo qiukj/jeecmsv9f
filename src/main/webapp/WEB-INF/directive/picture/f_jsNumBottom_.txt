@@ -1,0 +1,113 @@
+<link href="${resSys}/design/css/focus_num1.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${resSys}/design/js/focus_num1.js"></script>
+<div>
+<div id="box">
+    <div class="prev"></div>
+    <div class="next"></div>
+    <ul class="bigUl">
+    [@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        [#list tag_list as c]
+       		[#if c_index==0]<li style="z-index:1">[#else]<li>[/#if]<a href="http://www.lanrentuku.com/"><a href="${c.url!}" target="_blank">[#if imgType=="1"]<img src="${c.titleImg!}" title="${c.title!}" />[#else]<img src="${c.typeImg!}" title="${c.title!}" />[/#if]</a></li>
+       [/#list]
+    [/@cms_content_list]
+    </ul>
+    <ul class="numberUl">
+    [@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        [#list tag_list as c]
+     	 [#if c_index==0]<li class="night">[#else]<li>[/#if]<a href="javascript:;">${c_index+1}</a></li>
+      	[/#list]
+    [/@cms_content_list]
+    </ul>
+    <div>
+      <ul class="textUl">
+      [@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        [#list tag_list as c]
+        	[#if c_index==0]<li style="display:block;">[#else]<li>[/#if]<a href="${c.url!}">${c.title!}</a></li>
+        [/#list]
+      [/@cms_content_list]
+      </ul>
+    </div>
+ </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    var oBox = document.getElementById('box');
+	  var oPrev = getByClass(oBox,'prev')[0];
+	  var oNext = getByClass(oBox,'next')[0];
+	  var oBigUl = getByClass(oBox,'bigUl')[0];
+	  var aLiBig = oBigUl.getElementsByTagName('li');
+	  var oNumUl = getByClass(oBox,'numberUl')[0];
+	  var aLiNumber = oNumUl.getElementsByTagName('li');
+	  var oTextUl = getByClass(oBox,'textUl')[0];
+	  var aLiText = oTextUl.getElementsByTagName('li');
+	  var nowZindex = 1;
+	  var now = 0;
+	  function tab()
+	  {
+		   for(var i=0; i<aLiNumber.length; i++)
+			  {
+				  aLiNumber[i].className = '';
+			  }
+			  aLiNumber[now].className = 'night';
+		  aLiBig[now].style.zIndex = nowZindex++;
+		  aLiBig[now].style.opacity = 0;
+		  startMove(aLiBig[now],'opacity',100);
+		  for(var i=0; i<aLiText.length; i++)
+		  {
+			  aLiText[i].style.display = 'none';
+		  }
+		  aLiText[now].style.display = 'block'
+	  }
+	  for(var i=0; i<aLiNumber.length; i++)
+	  {
+		  aLiNumber[i].index = i;
+		  aLiNumber[i].onclick = function()
+		  {
+			  if(this.index==now)return;
+			  now = this.index;
+			  tab();
+		  }
+	  }
+	  oNext.onmouseover = oPrev.onmouseover = oBigUl.onmouseover = function()
+	  {
+		  startMove(oPrev,'opacity',100);
+		   startMove(oNext,'opacity',100)
+	  }
+	   oNext.onmouseout = oPrev.onmouseout = oBigUl.onmouseout = function()
+	  {
+		  startMove(oPrev,'opacity',0);
+		  startMove(oNext,'opacity',0)
+	  }
+	  oPrev.onclick = function()
+	  {
+		  now--
+		  if(now==-1)
+		  {
+			  now=aLiNumber.length-1;
+		  }
+		  tab();
+	  }
+	    oNext.onclick = function()
+	  {
+		  now++
+		  if(now==aLiNumber.length)
+		  {
+			  now=0;
+		  }
+		  tab();
+	  }
+	  var timer = setInterval(oNext.onclick,3000)
+	  oBox.onmouseover = function()
+	  {
+		  clearInterval(timer)
+	  }
+	  oBox.onmouseout = function()
+	  {
+		  timer = setInterval(oNext.onclick,3000)//改变速度修改3000 ，例如3000=3秒钟
+	  }
+		var height=$("#box").parent().css("height");
+		var width=$("#box").parent().css("width");
+		var boxHeight=height.substring(0,height.indexOf("px"))-20;
+		$("#box").css("height",boxHeight+"px").css("width",width);
+});
+</script>

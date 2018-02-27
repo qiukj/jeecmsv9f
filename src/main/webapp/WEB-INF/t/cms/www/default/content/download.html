@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${site.name} - Powered by JEECMS</title>
+<meta content="${content.tagStr!}" http-equiv="keywords" />
+<meta content="${content.description!}" http-equiv="description" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container video clearfix">  
+  <section class="dl_main clearfix" style="margin-top:0;">
+    <section class="content_w850">
+      <h1>${channel.name}<a class="position" href="${base}/download/index.jhtml">
+      	[#if channel.parent??]${channel.parent.name}[/#if]
+      </a></h1>
+      <section class="dl_top">
+        <img src="${content.contentImg!}">
+        <h2>${content.title}</h2>
+        <div class="dl_top_des">
+          <p>[#if content.attr.size??]<span>大小:${content.attr.size!}</span>[/#if][#if content.attr.edition??]<span>版本:${content.attr.edition!}</span>[/#if]授权方式:${content.attr.warrant!}</p>
+          <p>[#if content.attr.bit??]<span>位数:${content.attr.bit!}</span>[/#if]更新日期:${content.releaseDate?string("yyyy-MM-dd")}</p>
+          [#if content.attr.system??]<p>支持系统:${content.attr.system!}</p>[/#if]
+          <p>下载次数:<span id="downloads" style="margin-right:0; color:#546f95;"></span>次</p>
+        </div>
+        [#if content.attachments?size gt 0]
+        [#list content.attachments as attach]
+        <div class="dl_top_btn"><a id="attach${attach_index}">立即下载</a></div>
+        [/#list]
+        [/#if]
+      </section>
+      <section class="dl_list">
+        <div class="item">
+          <h1><span>软件介绍</span></h1>
+          <div class="dl_list_txt">
+            ${txt!}
+          </div>
+        </div>
+      </section>
+  </section>
+    <section class="w310">
+      <section class="dl_charts" style="float:none;">
+      <div class="dl_charts_nav"><h1>下载排行</h1></div>
+       [@cms_content_list count='1' orderBy='17' titLen='25' channelId='78' channelOption='1']
+      [#list tag_list as a]
+      <div class="dl_charts_list first" style="margin-top:5px; border-top:0;">
+        <div class="shr" style="margin-top:5px; border-top:0;">
+          <span>1</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix" style="display:block; margin-top:5px; border-top:0;">
+          <span>1</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#list]
+      [/@cms_content_list]
+      [@cms_content_list count='2' orderBy='17' titLen='25' channelId='78' channelOption='1']
+      [#list tag_list as a]
+      [#if a_index>0]
+      <div class="dl_charts_list second">
+        <div class="shr" style="display:block;">
+          <span>2</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix">
+          <span>2</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.contentCount.downloads!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+      [@cms_content_list count='3' orderBy='17' titLen='25' channelId='78' channelOption='1']
+      [#list tag_list as a]
+      [#if a_index>1]
+      <div class="dl_charts_list third">
+        <div class="shr" style="display:block;">
+          <span>3</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix">
+          <span>3</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+      [@cms_content_list count='10' orderBy='17' titLen='25' channelId='78' channelOption='1']
+      [#list tag_list as a]
+      [#if a_index>2]
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>${a_index+1}</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix">
+          <span>${a_index+1}4</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+      <script>
+        $(document).ready(function(){
+			$(".dl_charts_list").hover(function(){
+				$(".open").css("display","none");
+				$(".shr").css("display","block");
+				$(this).children(".shr").css("display","none");
+				$(this).children(".open").css("display","block");				
+				})
+			})
+      </script>
+    </section>
+      <section class="tag clearfix" style="margin-top:20px;">
+        <div class="tag-nav"><h1>猜你喜欢</h1></div>
+        <div class="gulike">
+          <div class="gulike-list">
+           [@cms_content_list count='4' recomment='1' orderBy='4' titLen='18' channelId='78' channelOption='1']
+           [#list tag_list as a]
+          <div class="gulike-item clearfix" style="border-top:none;">
+            <img src="${a.titleImg!}">
+            <a href="${a.url}">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a>
+            <p>[@text_cut s=a.description! len=titLen append='...'/]</p>
+          </div>
+           [/#list]
+           [/@cms_content_list]
+          </div>
+        </div>
+      </section> 
+    </section>
+  </section> 
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

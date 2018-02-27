@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tag相关资讯 - ${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <section class="content_w850">
+    [@cms_content_page tagId=tag.id count='10' descLen='100' append='...' ]
+    <div class="searchNav">“<span>${tag.name}</span>”Tag标签 共有<span> ${tag_list?size} </span>条相关资讯</div>
+    <div class="searchList">
+      [#list tag_pagination.list as s]
+      <div class="item">
+        <div class="search-title"><a href="${s.url}" target="_blank">${s.title}</a></div>
+        <div class="search-txt">
+          [@text_cut s=s.description len=descLen append=append/]
+        </div>
+        <div class="search-date"><a href="${s.ctgUrl}" target="_blank">${s.ctgName}</a><em>${s.releaseDate}</em>浏览 <span>${s.views}</span></div>
+      </div>
+      [/#list]
+    </div>
+    [#include "../include/page.html"/]
+    [/@cms_content_page]	  
+  </section>
+  [#include "../include/right310.html"/]
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

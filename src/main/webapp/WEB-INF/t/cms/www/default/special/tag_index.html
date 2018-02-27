@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tags标签导航 - ${site.name} - Powered by JEECMS</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="main container clearfix">
+  <section class="message_w860">
+   [@cms_tag_list]
+    <h1>Tags标签列表<span class="tag-count">(${tag_list?size}个)</span></h1>
+    <div class="tag-list">
+       <ul>
+         [#list tag_list as t]
+         <li><a href="${base}/tag/${t.id}.jspx" target="_blank">${t.name}<span>[${t.count}]</span></a></li>
+         [/#list]
+       </ul>
+    </div>
+    [/@cms_tag_list]
+  </section>
+  <section class="w310">
+    <section class="tag clearfix">
+      <div class="tag-nav"><h1><a>大家都在搜</a></h1></div>
+      <div class="tagList">
+        <div style="" class="cTag">
+        [@cms_searchword_list word='' siteId='1' recommend='1' orderBy='4' count='11']
+	        [#list tag_list as word]
+		     <a href="${base}/search.jspx?q=${word.name!}">${word.name!}</a>
+	        [/#list]
+		[/@cms_searchword_list]
+        </div>
+      </div>
+    </section>
+    <section class="tag issue clearfix">
+      <div class="tag-nav"><h1><a>热门话题</a></h1></div>
+       [@cms_content_list typeId='2' count='5' orderBy='9' channelId='75' channelOption='1']
+     [#list tag_list as a]
+      <div class="item clearfix" [#if a_index<1]style="border-top:none;"[/#if]>
+        <a href="${a.url}" target="_blank" class="img"><img src="${a.typeImg!}"></a>
+        <h2><a href="${a.url}" target="_blank">[@text_cut s=a.title len='22' append='...' /]</a></h2>
+        <div class="issue-comment">评论  (${a.contentCount.comments!})</div>
+      </div>
+     [/#list]
+   [/@cms_content_list]
+    </section>
+  </section>
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

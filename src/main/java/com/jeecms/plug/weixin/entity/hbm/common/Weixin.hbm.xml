@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.plug.weixin.entity">
+	<class
+		name="Weixin"
+		table="jg_weixin"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id name="id" type="java.lang.Integer" column="site_id">
+			<generator class="foreign"><param name="property">site</param></generator>
+		</id>
+		<property
+			name="welcome"
+			column="wx_welcome"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="pic"
+			column="wx_pic"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<one-to-one name="site" class="com.jeecms.core.entity.CmsSite" constrained="true"/>
+	</class>	
+</hibernate-mapping>

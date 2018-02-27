@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>${channel.title!channel.name} - ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="keywords" content="${channel.keywords!}"/>
+<meta http-equiv="description" content="${channel.description!}"/>
+
+<link href="/${mobileRes!}/css/pic/public.css" rel="stylesheet" type="text/css"/>
+<link href="/${mobileRes!}/css/pic/share.css" rel="stylesheet" type="text/css"/>
+<script src="/${mobileRes!}/js/focus/TouchSlide.1.1.js"></script>
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	Cms.channelViewCount("${base}","${channel.id}");
+	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+<style>
+.i-title h2 a{display: block;float: right;font-size: 0.7em;color: #65BAF1;padding-right: 1.5em;}
+</style>
+</head>
+
+<body>
+<div id="wrap" class="clearfix overflow mg-auto"> 
+	[#include "../include/header_lanmu.html"/]
+    <div class="i-title clearfix area">
+        <h2>${channel.name!}</h2>
+    </div>
+    <div class="clearfix">
+        <div class="clearfix tab-con2">
+            <ul class="clearfix">
+                [@cms_content_page count='10' orderBy='4' channelId=channel.id channelOption='1']
+            	[#list tag_pagination.list as a]
+                <li>
+                    <a href="${a.mobileUrl}" class="tab-con-href2 clearfix">
+                        <h4 style="width:100%;">[@text_cut s=a.title /]</h4>
+                        <p style="width:100%;"><i>${a.downNeed!}财富值</i></p>
+                    </a>                   
+           		</li>
+            	[/#list]
+                <div style="clear:both; height:20px;"></div>
+                <div class="pagesite">
+                [@cms_pagination sysPage='1'/]
+                </div>
+                [/@cms_content_page]
+            </ul>
+        </div>       
+        
+    </div>
+    
+    [#include "../include/footer.html"/]
+</div>
+<script src="/${mobileRes!}/js/focus/foot.js"></script>
+</body>
+</html>

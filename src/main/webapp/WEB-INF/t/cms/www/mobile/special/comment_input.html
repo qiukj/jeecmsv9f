@@ -1,0 +1,63 @@
+ [#if content.channel.commentControl==0 || ((content.channel.commentControl==1||content.channel.commentControl==3) && user??)]
+  <form id="commentFormCsi" action="${base}/comment.jspx" method="post">
+<textarea name="text" class="reply-text" cols="60" rows="5"></textarea>
+<div class="plfr1 clearfix">
+[#if user??&&user.group.needCaptcha||!user??]
+<div style="float:left;">
+  <input name="captcha" type="text" placeholder="验证码" id="captcha" vld="{required:true}" class="plcode"/>
+</div>
+<div style="float:left;">
+  <img id="commentCaptcha" src="${base}/captcha.svl" onclick="this.src='${base}/captcha.svl?d='+new Date()"/>
+</div>
+[/#if]
+<input type="hidden" name="contentId" value="${contentId!?html}"/>
+<input type="hidden" name="parentId" value="${commemtId!?html}"/>
+<input type="hidden" name="sessionId" id="sessionIdCsi" />
+<input type="submit" name="Submit" value="回复" class="reply-btn"></div>
+</form>
+<script type="text/javascript">
+    $(function() {
+       $("#sessionIdCsi").val($.cookie("JSESSIONID"));
+        Cms.comment(function(data) {
+            if(data.status==0) {
+                alert("评论成功");
+                location.href=location.href;
+            } else if(data.status==1) {	
+                alert("验证码错误");
+                $("#commentCaptchaCsi").click();
+            } else if(data.status==2) {	
+                alert("内容不存在");
+                $("#commentCaptchaCsi").click();
+            } else if(data.status==3) {	
+                alert("评论关闭");
+                $("#commentCaptchaCsi").click();
+            } else if(data.status==4) {	
+                alert("需要登录评论");
+                $("#commentCaptchaCsi").click();
+            }else if(data.status==5) {	
+                alert("已经评论过，不能重复评论");
+                $("#commentCaptchaCsi").click();
+            } else if(data.status==100) {	
+                alert("内容不存在");
+                $("#commentCaptchaCsi").click();
+            } else if(data.status==101) {	
+                alert("评论不能为空");
+                $("#commentCaptchaCsi").click();
+            } else {
+                alert("评论失败");
+                $("#commentCaptchaCsi").click();
+            }
+        },"commentFormCsi");
+    });
+    </script>
+  [#elseif content.channel.commentControl==1 && !user??]
+    [#--登录评论，且未登录--]
+    <div style="width:96%;font-size:14px;color:red;margin:10px;">
+    您尚未登录，请登录后发布评论！ 【<a href="${base}/login.jspx?returnUrl=/">马上登录</a>】
+    </div>
+    [#else]
+    [#--不允许评论--]
+    [/#if]
+
+
+

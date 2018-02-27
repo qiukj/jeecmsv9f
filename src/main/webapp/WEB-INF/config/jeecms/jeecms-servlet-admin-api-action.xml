@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd"
+	
+default-lazy-init="true">
+	<bean id="siteConfigApiAct" class="com.jeecms.cms.api.admin.main.CmsSiteConfigApiAct"></bean>
+	<bean id="ftpApiAct" class="com.jeecms.cms.api.admin.main.FtpApiAct"></bean>
+	<bean id="siteApiAct" class="com.jeecms.cms.api.admin.main.CmsSiteApiAct"></bean>
+	<bean id="configApiAct" class="com.jeecms.cms.api.admin.main.CmsConfigApiAct"></bean>
+	<bean id="channelApiAct" class="com.jeecms.cms.api.admin.main.ChannelApiAct"/>
+	<bean id="modelApiAct" class="com.jeecms.cms.api.admin.main.CmsModelApiAct"/>
+	<bean id="modelItemApiAct" class="com.jeecms.cms.api.admin.main.CmsModelItemApiAct"/>
+	<bean id="roleApiAct" class="com.jeecms.cms.api.admin.main.CmsRoleApiAct"/>
+	<bean id="groupApiAct" class="com.jeecms.cms.api.admin.main.CmsGroupApiAct"/>
+	<bean id="contentApiAct" class="com.jeecms.cms.api.admin.main.ContentApiAct"/>
+	<bean id="topicApiAct" class="com.jeecms.cms.api.admin.main.CmsTopicApiAct"/>
+	<bean id="memberApiAct" class="com.jeecms.cms.api.admin.main.CmsMemberApiAct"/>
+	<bean id="adminGlobalApiAct" class="com.jeecms.cms.api.admin.main.CmsAdminGlobalApiAct"/>
+	<bean id="adminLocalApiAct" class="com.jeecms.cms.api.admin.main.CmsAdminLocalApiAct"/>
+	<bean id="thirdAccountApiAct" class="com.jeecms.cms.api.admin.main.CmsThirdAccountApiAct"/>
+	<bean id="logApiAct" class="com.jeecms.cms.api.admin.main.CmsLogApiAct"/>
+	<bean id="messageApiAct" class="com.jeecms.cms.api.admin.main.CmsMessageApiAct"/>
+	<bean id="ossApiAct" class="com.jeecms.cms.api.admin.main.CmsOssApiAct"/>
+	<bean id="fireWallConfigApiAct" class="com.jeecms.cms.api.admin.main.CmsFireWallConfigApiAct"/>
+	<bean id="configContentChargeApiAct" class="com.jeecms.cms.api.admin.main.CmsConfigContentChargeApiAct"/>
+	<bean id="webserviceApiAct" class="com.jeecms.cms.api.admin.main.CmsWebserviceApiAct"/>
+	<bean id="webserviceAuthApiAct" class="com.jeecms.cms.api.admin.main.CmsWebserviceAuthApiAct"/>
+	<bean id="webserviceCallRecordApiAct" class="com.jeecms.cms.api.admin.main.CmsWebserviceCallRecordApiAct"/>
+	<bean id="apiInfoApiAct" class="com.jeecms.cms.api.admin.main.ApiInfoApiAct"/>
+	<bean id="accountApiAct" class="com.jeecms.cms.api.admin.main.ApiAccountApiAct"/>
+	<bean id="apiRecordApiAct" class="com.jeecms.cms.api.admin.main.ApiRecordApiAct"/>
+	<bean id="directiveApiAct" class="com.jeecms.cms.api.admin.main.DirectiveApiAct"/>
+	
+	<bean id="contentTypeApiAct" class="com.jeecms.cms.api.admin.assist.ContentTypeApiAct"/>
+	<bean id="templateApiAct" class="com.jeecms.cms.api.admin.assist.CmsTemplateApiAct"/>
+	<bean id="resourceApiAct" class="com.jeecms.cms.api.admin.assist.CmsResourceApiAct"/>
+	<bean id="weixinApiAct" class="com.jeecms.cms.api.admin.assist.WeixinApiAct"/>
+	<bean id="contentRecordApiAct" class="com.jeecms.cms.api.admin.assist.ContentRecordApiAct"/>
+	<bean id="golbalStatisticApiAct" class="com.jeecms.cms.api.admin.assist.CmsGolbalStatisticApiAct"/>
+	<bean id="statisticApiAct" class="com.jeecms.cms.api.admin.assist.CmsStatisticApiAct"/>
+	<bean id="luceneContentApiAct" class="com.jeecms.cms.api.admin.assist.LuceneContentApiAct"/>
+	<bean id="contentReuseApiAct" class="com.jeecms.cms.api.admin.assist.ContentReuseApiAct"/>
+	<bean id="taskApiAct" class="com.jeecms.cms.api.admin.assist.CmsTaskApiAct"/>
+	<bean id="acquisitionApiAct" class="com.jeecms.cms.api.admin.assist.CmsAcquisitionApiAct"/>
+	<bean id="friendlinkApiAct" class="com.jeecms.cms.api.admin.assist.CmsFriendlinkApiAct"/>
+	<bean id="friendlinkCtgApiAct" class="com.jeecms.cms.api.admin.assist.CmsFriendlinkCtgApiAct"/>
+	<bean id="advertisingApiAct" class="com.jeecms.cms.api.admin.assist.CmsAdvertisingApiAct"/>
+	<bean id="advertisingSpaceApiAct" class="com.jeecms.cms.api.admin.assist.CmsAdvertisingSpaceApiAct"/>
+	<bean id="fileApiAct" class="com.jeecms.cms.api.admin.assist.CmsFileApiAct"/>
+	<bean id="dictionaryApiAct" class="com.jeecms.cms.api.admin.assist.CmsDictionaryApiAct"/>
+	<bean id="scoreGroupApiAct" class="com.jeecms.cms.api.admin.assist.CmsScoreGroupApiAct"/>
+	<bean id="scoreItemApiAct" class="com.jeecms.cms.api.admin.assist.CmsScoreItemApiAct"/>
+	<bean id="dimensionCodeApiAct" class="com.jeecms.cms.api.admin.assist.DimensionCodeApiAct"/>
+	<bean id="accountDrawApiAct" class="com.jeecms.cms.api.admin.assist.CmsAccountDrawApiAct"/>
+	<bean id="accountPayApiAct" class="com.jeecms.cms.api.admin.assist.CmsAccountPayApiAct"/>
+	<bean id="contentChargeApiAct" class="com.jeecms.cms.api.admin.assist.CmsContentChargeApiAct"/>
+	<bean id="contentTagApiAct" class="com.jeecms.cms.api.admin.assist.ContentTagApiAct"/>
+	<bean id="sensitivityApiAct" class="com.jeecms.cms.api.admin.assist.CmsSensitivityApiAct"/>
+	<bean id="keywordApiAct" class="com.jeecms.cms.api.admin.assist.CmsKeywordApiAct"/>
+	<bean id="originApiAct" class="com.jeecms.cms.api.admin.assist.CmsOriginApiAct"/>
+	<bean id="searchWordsApiAct" class="com.jeecms.cms.api.admin.assist.CmsSearchWordsApiAct"/>
+	<bean id="mysqlDataApiAct" class="com.jeecms.cms.api.admin.assist.MysqlDataApiAct"/>
+	<bean id="commentApiAct" class="com.jeecms.cms.api.admin.assist.CmsCommentApiAct"/>
+	<bean id="voteTopicApiAct" class="com.jeecms.cms.api.admin.assist.CmsVoteTopicApiAct"/>
+	<bean id="guestbookApiAct" class="com.jeecms.cms.api.admin.assist.CmsGuestbookApiAct"/>
+	<bean id="guestbookCtgApiAct" class="com.jeecms.cms.api.admin.assist.CmsGuestbookCtgApiAct"/>
+	<bean id="jobApplyApiAct" class="com.jeecms.cms.api.admin.assist.CmsJobApplyApiAct"/>
+	<bean id="weixinMenuApiAct" class="com.jeecms.cms.api.admin.assist.WeixinMenuApiAct"/>
+	<bean id="staticApiAct" class="com.jeecms.cms.api.admin.assist.StaticApiAct"/>
+	<bean id="weixinMessageApiAct" class="com.jeecms.cms.api.admin.assist.WeixinMessageApiAct"/>
+
+	<bean id="frameApiAct" class="com.jeecms.cms.api.admin.assist.FrameApiAct">
+		<property name="db" value="#{propertyUtils.getPropertiesString('hibernate.db')}"></property>
+	</bean>
+</beans>

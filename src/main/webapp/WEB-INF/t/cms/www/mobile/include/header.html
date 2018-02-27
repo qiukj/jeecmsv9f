@@ -1,0 +1,23 @@
+<header class="header">
+  [#if channel??]${channel.title!channel.name}[#else]留言板[/#if]
+  <div class="header-icon-left"><a class="header-nav"></a><a href="/${base}" class="header-home"></a></div>
+  <div class="header-icon-right">[#if user??]<a class="header-user login-out" href="${base}/logout.jspx"></a>[#else]<a class="header-user" href="${base}/login.jspx"></a>[/#if]<a class="header-search"></a></div>
+  <link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/style.css">
+  <script src="/${mobileRes!}/js/main.js" ></script>
+  <div class="cd-bouncy-nav-modal">
+		<nav>
+			<ul class="cd-bouncy-nav">
+				<li><a href="${base}/news/index.jhtml">新闻</a></li>
+				<li><a href="${base}/pic/index.jhtml">图库</a></li>
+				<li><a href="${base}/video/index.jhtml">视频</a></li>
+				<li><a href="${base}/download/index.jhtml">下载</a></li>
+                                <li><a href="${base}/job/index.jhtml">招聘</a></li>
+                                <li><a href="${base}/doc/index.jhtml">文库</a></li>
+                                <li><a href="${base}/wldc.jhtml">网络调查</a></li>
+                                <li><a href="${base}/guestbook.jspx">留言板</a></li>
+				<li><a href="http://bbs.jeecms.com">论坛</a></li>
+			</ul>
+		</nav>
+		<a href="#0" class="cd-close">Close modal</a>
+  </div>
+  </header>

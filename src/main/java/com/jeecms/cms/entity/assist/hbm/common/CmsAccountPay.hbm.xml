@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.assist">
+	<class
+		name="CmsAccountPay"
+		table="jc_account_pay"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="java.lang.Long"
+			column="account_pay_id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="drawNum"
+			column="draw_num"
+			type="string"
+			not-null="true"
+			length="50"
+		/>
+		<property
+			name="payAccount"
+			column="pay_account"
+			type="string"
+			not-null="true"
+			length="100"
+		/>
+		<property
+			name="drawAccount"
+			column="draw_account"
+			type="string"
+			not-null="true"
+			length="100"
+		/>
+		<property
+			name="payTime"
+			column="pay_time"
+			type="timestamp"
+			not-null="true"
+			length="19"
+		/>
+		<property
+			name="weixinNum"
+			column="weixin_num"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="alipayNum"
+			column="alipay_num"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		
+		<many-to-one name="payUser" column="pay_user_id" class="com.jeecms.core.entity.CmsUser" not-null="true"></many-to-one>
+		<many-to-one name="drawUser" column="draw_user_id" class="com.jeecms.core.entity.CmsUser" not-null="true"></many-to-one>
+		
+
+	</class>	
+</hibernate-mapping>

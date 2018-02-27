@@ -1,0 +1,28 @@
+body {
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 62.5%;
+}
+#draggable { width: 16em; padding: 0 1em; }
+#draggable ul li { margin: 1em 0; padding: 0.5em 0; } * html #draggable ul li { height: 1%; }
+#draggable ul li span.ui-icon { float: left; }
+#draggable ul li span.count { font-weight: bold; }
+#resizable { background-position: top left; }
+#resizable{ width: 150px; height: 120px; padding: 0.5em; }
+#also { width: 150px; height: 100px; margin-top: -100px; }
+#resizable h3, #also h3 { text-align: center; margin: 0; }
+.ui-resizable-helper { border: 2px dotted #00F; }
+.topDiv{}
+.leftDiv{width: 200px;float: left;}
+.rightDiv{width: 1000px;float: left;margin-left: 20px}
+.bodyPage{width: 1000px;}
+.pageContext{width: 700px;margin:auto;}
+.borderWapper{width: 200px;height:200px;background£ºnone}
+.borderselected{border-style:solid; border-width:1px; border-color:#000}
+.contentWapper{margin-top:60px; 20px;height:20px;background£ºnone;z-index: 101;}
+.shield{left: 0; top: 0;height: 100%;width: 100%;z-index: 100;opacity: 0;}
+.content{overflow:auto;}
+.bordSpan{overflow:auto;}
+.borderLink{overflow:auto;float: right;}
+.leftCurr/*µ±Ç°²Ëµ¥*/{float:left; cursor:pointer; background:url(../img/admin/LMBg1.jpg); width:209px; height:27px; line-height:27px; color:#fff; margin-top:1px; text-indent:9em;}
+.leftNol{float:left; cursor:pointer; background:url(../img/admin/LMBg2.jpg); width:209px; height:27px; line-height:27px; color:#14436b; margin-top:1px; text-indent:9em;}
+#btUL li{float: left;cursor: pointer;}

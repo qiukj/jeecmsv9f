@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<deployment xmlns:java="http://xml.apache.org/axis/wsdd/providers/java"
+
+ xmlns="http://xml.apache.org/axis/wsdd/" xmlns:ns1="CmsServer">
+
+<handler type="java:org.apache.axis.handlers.http.URLMapper" name="URLMapper"/>
+
+<service name="User" provider="java:RPC">
+
+    <parameter name="allowedMethods" value="addUser,delUser,updateUser"/>
+
+    <parameter name="className" value="com.jeecms.cms.webservices.UserService"/>
+
+</service>
+<transport name="http">
+	<requestFlow>
+		<handler type="URLMapper"/>
+	</requestFlow>
+</transport>
+</deployment>

@@ -1,0 +1,24 @@
+<section class="survey_w328">
+    <div class="survey_ing">
+      <h1><a>进行中调查</a></h1>
+      <div class="survey_ing_con">
+        <ul>
+          [@cms_vote][#if tag_bean??]<li><a>${tag_bean.title?html}</a></li>[/#if][/@cms_vote]
+        </ul>
+      </div>
+    </div>
+    <div class="survey_ing survey_end" style="margin-top:40px;">
+      <h1><a>过往调查</a></h1>
+      <div class="survey_ing_con">
+      [@cms_vote_list  siteId=site.id]   
+        <ul>
+         [#list tag_list as vote]
+      
+          <li><a href="${base}/vote.jspx?voteId=${vote.id}">[@text_cut s=vote.title?html len=14 append='...' /] [#if vote.endTime??]${vote.endTime?string("yyyy-MM-dd")}[/#if]</a></li>
+      
+         [/#list]
+        </ul>
+      [/@cms_vote_list]
+      </div>
+    </div>
+  </section>

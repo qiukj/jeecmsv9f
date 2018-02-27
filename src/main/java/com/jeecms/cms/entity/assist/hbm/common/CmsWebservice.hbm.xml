@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.assist">
+	<class
+		name="CmsWebservice"
+		table="jc_webservice"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id
+			name="id"
+			type="integer"
+			column="service_id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="address"
+			column="service_address"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="targetNamespace"
+			column="target_namespace"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="successResult"
+			column="success_result"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="type"
+			column="service_type"
+			type="string"
+			not-null="false"
+			length="50"
+		/>
+		<property
+			name="operate"
+			column="service_operate"
+			type="string"
+			not-null="false"
+			length="50"
+		/>
+	
+
+		<list name="params" table="jc_webservice_param">
+			<cache usage="read-write"/>
+			<key column="service_id"/>
+			<list-index column="priority"/>
+			<composite-element class="CmsWebserviceParam">
+				<property name="paramName" column="param_name" type="string" length="255" not-null="true"/>
+				<property name="defaultValue" column="default_value" type="string" length="255" not-null="false"/>
+			</composite-element>
+		</list>
+
+
+	</class>	
+</hibernate-mapping>

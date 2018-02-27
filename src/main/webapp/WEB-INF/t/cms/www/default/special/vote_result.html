@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="keywords" content="${site.keywords!}"/>
+<meta http-equiv="description" content="${site.description!}"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	Cms.siteFlow("${base}", location.href, document.referrer);
+});
+</script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container survey clearfix"> 
+  <section class="survey_w840">
+    <h1>投票结果<a href="${base}/survey/index.jhtml" class="position">网络调查</a></h1>
+    <div class="survey_con result">
+      [#if status?? && status!=0]
+            [#if status==1]
+            投票ID不能为空
+            [#elseif status==2]
+            投票项不能为空  
+            [#elseif status==100]
+            投票主题不存在
+            [#elseif status==101]
+            投票项不合法
+            [#elseif status==501]
+            需要登录才能投票
+            [#elseif status==200]
+            投票主题已经关闭
+            [#elseif status==201]
+            投票的选项个数大于允许的个数
+            [#elseif status==202]
+            投票还没有开始
+            [#elseif status==203]
+            投票已经结束
+            [#elseif status==204]
+            您已经投过票了，请勿重复投票！<!--，同一会员不能重复投票-->
+            [#elseif status==205]
+            您已经投过票，请勿重复投票！了<!--，，同一IP不能重复投票-->
+            [#elseif status==206]
+            您已经投过票了，请勿重复投票！<!--，，同一COOKIE不能重复投票-->
+    
+            [#elseif status==10]  
+             回复内容含有敏感词
+            [#else]
+            投票失败  
+            [/#if]
+         [#else]
+      <h1><span>投票主题：</span>${vote.title?html}<span>参与人数：</span>${vote.totalCount} 人</h1>
+      <div class="survey_list">
+        [#list vote.subtopics as subTopic]
+        <div class="item">
+          <p>${subTopic_index+1}、${subTopic.title?html}[#if subTopic.isText] <a href="${base}/vote_reply_view.jspx?subId=${subTopic.id}" style="color:#1160b2;">查看回复结果</a>[/#if]</p>
+          
+          [#if subTopic.isRadio||subTopic.isMulti]
+          <div>
+            <ul>
+          [#list subTopic.voteItems as item]   
+              <li><div class="option">${item_index+1}、${item.title?html} - (${item.voteCount}票)</div><div class="percent" style="width:${item.percent}%;"><span>${item.percent}%</span></div></li>
+          [/#list]
+            </ul>
+          </div>
+          [/#if]
+        </div>
+        [/#list]
+        
+      </div>
+     [/#if]
+    </div>
+  </section>
+  [#include "../include/vote_right.html"/]
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

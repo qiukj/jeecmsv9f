@@ -1,0 +1,26 @@
+<section class="w310">
+    <section class="tag clearfix">
+      <div class="tag-nav"><h1><a>大家都在搜</a></h1></div>
+      <div class="tagList">
+        <div style="" class="cTag">
+        [@cms_searchword_list word='' siteId='1' recommend='1' orderBy='4' count='11']
+	        [#list tag_list as word]
+		     <a href="${base}/search.jspx?q=${word.name!}">${word.name!}</a>
+	        [/#list]
+		[/@cms_searchword_list]
+        </div>
+      </div>
+    </section>
+    <section class="tag issue clearfix">
+      <div class="tag-nav"><h1><a>热门话题</a></h1></div>
+      [@cms_content_list typeId='2' count='5' orderBy='9' channelId='75' channelOption='1']
+     [#list tag_list as a]
+      <div class="item clearfix" [#if a_index<1]style="border-top:none;"[/#if]>
+        <a href="${a.url}" target="_blank" class="img"><img src="${a.typeImg!}"></a>
+        <h2><a href="${a.url}" target="_blank">[@text_cut s=a.title len='22' append='...' /]</a></h2>
+        <div class="issue-comment">评论  (${a.contentCount.comments!})</div>
+      </div>
+     [/#list]
+   [/@cms_content_list]
+    </section>
+  </section>

@@ -1,0 +1,29 @@
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	font-family:"微软雅黑";
+}
+.clearfix{
+	clear: both;
+}
+
+.msg{
+	margin-top: 100px;
+	text-align: center;
+}
+.msg p{
+	width: 552px;
+	margin: 20px auto;
+	font-size: 24px;
+}
+.bottom{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.bottom img{
+	width: 100%;
+}

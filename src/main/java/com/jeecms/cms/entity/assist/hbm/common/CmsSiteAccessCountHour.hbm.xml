@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.assist">
+	<class
+		name="CmsSiteAccessCountHour"
+		table="jc_site_access_count_hour"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="integer"
+			column="access_count_hour_id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="hourPv"
+			column="hour_pv"
+			type="long"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="hourIp"
+			column="hour_ip"
+			type="long"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="hourUv"
+			column="hour_uv"
+			type="long"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="accessDate"
+			column="access_date"
+			type="date"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="accessHour"
+			column="access_hour"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		<many-to-one
+			name="site"
+			column="site_id"
+			class="com.jeecms.core.entity.CmsSite"
+			not-null="true"
+		>
+		</many-to-one>
+
+
+	</class>	
+</hibernate-mapping>

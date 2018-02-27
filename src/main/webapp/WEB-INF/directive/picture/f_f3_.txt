@@ -1,0 +1,1 @@
+[@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}' dateFormat='#{dateFormat}' titLen='#{titLen}' count='#{count}'   flashWidth='#{flashWidth}' flashHeight='#{flashHeight}' textHeight='#{textHeight}' useShortTitle='0' channelOption='1' siteId=site.id tpl='2' styleList='4-3'  append='...'/]

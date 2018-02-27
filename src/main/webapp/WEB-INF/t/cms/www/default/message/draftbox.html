@@ -1,0 +1,65 @@
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/${res}/css/index.css" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+<script src="/${res}/js/message.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+</script>
+<form id="tableForm" action="message_list.jspx" method="post" class="tggl">
+[#if pagination.list?size gt 0]
+<table cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+              <tr>
+                <td class="tggl-top" width="40">选择</td><td class="tggl-top">标题</td><td class="tggl-top">收件人</td><td class="tggl-top">操作</td>
+              </tr>
+              [#list pagination.list as c]
+              <tr id="tr_${c.id!}">
+                <td><input type="checkbox" class="member-check" name="ids" value="${c.id!}" /></td>
+                <td>
+                <a href="${base}/member/message_read.jspx?id=${c.id!}&&box=2">[@text_cut s=c.titleHtml len='15' append='...'/]</a>
+                </td>
+                <td>${c.msgReceiverUser.username!}</td>
+                <td><a href="${base}/member/message_edit.jspx?id=${c.id}">修改</a></td>
+              </tr>
+              [/#list]
+              <tr>
+                <td colspan="8" style="padding:20px 0;">
+                  <input type="hidden" name="pageNo"/>
+		          <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td align="center" class="pn-sp">
+		                共 ${pagination.totalCount} 条&nbsp;
+		                每页 ${pagination.pageSize} 条&nbsp;
+		                <input type="button" value="首 页" onclick="_gotoPage('1');"[#if pagination.firstPage] disabled="disabled"[/#if]/>
+		                <input type="button" value="上一页" onclick="_gotoPage('${pagination.prePage}');"[#if pagination.firstPage] disabled="disabled"[/#if]/>
+		                <input type="button" value="下一页" onclick="_gotoPage('${pagination.nextPage}');"[#if pagination.lastPage] disabled="disabled"[/#if]/>
+		                <input type="button" value="尾 页" onclick="_gotoPage('${pagination.totalPage}');"[#if pagination.lastPage] disabled="disabled"[/#if]/>&nbsp;
+		                当前 ${pagination.pageNo}/${pagination.totalPage} 页 &nbsp;转到第<input type="text" id="_goPs" onfocus="this.select();" onkeypress="if(event.keyCode==13){$('#_goPage').click();return false;}" style="width:50px; border:1px solid #e7e7e7;"/>页
+		                <input id="_goPage" type="button" value="转" onclick="_gotoPage($('#_goPs').val());"[#if pagination.totalPage==1] disabled="disabled"[/#if] />
+		            </td>
+		            </tr>
+		            </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<script type="text/javascript">
+function _gotoPage(pageNo) {
+	try{
+		var tableForm = document.getElementById("tableForm");
+		$("input[name=pageNo]").val(pageNo);
+		tableForm.action="message_list.jspx";
+		tableForm.onsubmit=null;
+		tableForm.submit();
+	} catch(e) {
+		alert('_gotoPage(pageNo)方法出错');
+	}
+}
+</script>
+[#else]
+	<div bgcolor="#C8DCF0">暂无草稿</div>
+[/#if]
+</form>
+

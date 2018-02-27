@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="keywords" content="${topic.keywords!}"/>
+<meta http-equiv="description" content="${topic.description!}"/>
+<title>${site.name} - Powered by JEECMS</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/topic.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<head>
+
+<body>
+<header class="header">
+  <div class="header-con"><a href="${base}/" class="topic-logo"></a><div class="header-r fr"><a href="${base}/topic.jspx"><i></i>专题列表</a></div></div>
+</header>   
+<section class="banner" style="background:url(${topic.contentImg!}) center center no-repeat;"></section>
+<section class="main">
+  <div class="top clearfix">
+    <div class="top-news fl">
+      <h1>专题头条</h1>
+      [@cms_content_list count='1' orderBy='4' channelId='75' titLen='23' channelOption='1' topicId=topic.id ]
+      [#list tag_list as a]
+      <div class="item" style="border:0px none;">
+        <div><a href="${a.url}" target="_blank" class="title bold">[@text_cut s=a.title len=titLen /]</a></div>
+        <div class="des">[@text_cut s=a.description! len=80 append='...<a class="more bold">[详细]</a>' /]</div>
+      </div>
+      [/#list]
+      [/@cms_content_list]
+       [@cms_content_list count='2' orderBy='4' channelId='75' titLen='23' channelOption='1' topicId=topic.id ]
+      [#list tag_list as a]
+      [#if a_index>0]
+      <div class="item">
+        <div><a href="${a.url}" target="_blank" class="title bold">[@text_cut s=a.title len=titLen /]</a></div>
+        <div class="des">[@text_cut s=a.description! len=80 append='...<a class="more bold">[详细]</a>' /]</div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+    </div>
+    <div class="top-slider">
+      <div class="home-banner" id="section-focus-pic">
+        <div class="bd" data-scro="list">     
+   [@cms_content_list typeId='2' recommend='1' titLen='20' channelOption='1' topicId=topic.id orderBy='4']     
+          <ul>
+      [#list tag_list as a]
+            <li class="item" [#if a_index<1]style="left:0;"[/#if]><a href="${a.url}" target="_blank"><img src="${a.typeImg!}"><div class="banner-title"><span>[@text_cut s=a.title len=titLen /]</span></div></a></li>
+            [/#list]
+          </ul>
+         [/@cms_content_list]
+        </div>
+        <div class="hd" data-scro="controler">
+          [@cms_content_list typeId='2' recommend='1' titLen='18' channelOption='1' topicId=topic.id orderBy='4']
+            [#list tag_list as a]
+               <b [#if a_index<1]class="down"[/#if]>${a_index+1}</b>
+               [/#list]
+             <span>/${tag_list?size}</span>
+           [/@cms_content_list]
+        </div>
+        <div class="controler2" data-scro="controler2">
+		  <a href="javascript:;" class="prev"><i></i></a>
+		  <a href="javascript:;" class="next"><i></i></a>
+	    </div>
+        <script type="text/javascript" src="/${res}/js/script.js"></script>
+      </div>
+    </div>
+  </div>
+  <div class="top-list">
+    <div class="item">
+       [@cms_content_list count='5' orderBy='4' channelId='75' titLen='23' channelOption='1' topicId=topic.id ]
+      [#list tag_list as a]
+      [#if a_index>1]
+      [#if a_index==2][#else] | [/#if]<a href="${a.url}" target="_blank">${a.title}</a>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+    </div>
+    <div class="item">
+       [@cms_content_list count='8' orderBy='4' channelId='75' titLen='23' channelOption='1' topicId=topic.id ]
+      [#list tag_list as a]
+      [#if a_index>4]
+      [#if a_index==5][#else] | [/#if]<a href="${a.url}" target="_blank">${a.title}</a>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+    </div>
+    <div class="item">
+       [@cms_content_list count='11' orderBy='4' channelId='75' titLen='23' channelOption='1' topicId=topic.id ]
+      [#list tag_list as a]
+      [#if a_index>7]
+      [#if a_index==8][#else] | [/#if]<a href="${a.url}" target="_blank">${a.title}</a>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+    </div>
+  </div>
+  <div class="topic-image">
+    <h1>专题图文</h1>
+    <div class="top-image-list">
+ [@cms_content_list typeId='2' recommend='2' channelId='76' count='6' titLen='20' channelOption='1' topicId=topic.id orderBy='4']    
+      <ul>
+        [#list tag_list as a]
+        <li [#if a_index==0||a_index==3]style="margin-left:0px;"[/#if]><a href="${a.url}" target="_blank"><img src="${a.typeImg!}"></a></li>
+        [/#list]
+          </ul>
+         [/@cms_content_list]
+    </div>
+  </div>
+</section>
+[#include "../include/footer.html"/]
+</body>
+</html>

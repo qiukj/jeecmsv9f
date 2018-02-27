@@ -1,0 +1,16 @@
+[@cms_content_list tagId='#{tagId}' topicId='#{topicId}' channelId='#{channelId}' channelPath='#{channelPath}'  typeId='#{typeId}' recommend='#{recommend}'  title='#{title}' image='#{image}' orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  dateFormat='#{dateFormat}'  new='#{new}'  showDesc='#{showDesc}' descLen='#{descLen}' target='#{target}'   channelOption='#{channelOption}' siteId=site.id  append='...']
+[#list tag_list as a]
+	[#if new=='1'][#if a.new]<img src='${base}/${site.newPic!}'/>[/#if][/#if]
+	[#if target=='1'] 
+		<li><a href='${a.url}' title='${a.title}' target="_blank">
+	[#else]
+		<li><a href='${a.url}' title='${a.title}'>
+	[/#if]
+	<a href='${a.url}' title='${a.title}' >[@text_cut s=a.title len=titLen append=append/]</a>&nbsp;&nbsp;${a.releaseDate?string(dateFormat)}</li>
+	[#if showDesc=='1']
+	<p>
+        [@text_cut s=a.desc len=descLen append='...'/]
+     </p>
+     [/#if]
+[/#list]
+[/@cms_content_list]

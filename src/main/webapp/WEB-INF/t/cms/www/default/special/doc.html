@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="keywords" content="${site.keywords!}"/>
+<meta http-equiv="description" content="${site.description!}"/>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(function() {
+	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<!--[if lt IE 9]> 
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body style="background-color:#fcfcfc;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]   
+<div class="main container clearfix">
+  <section class="wenku_w910">
+    <div class="doc_js">
+      <form action="${base}/searchCustom.jspx" method="get">
+      [@cms_model id="9"]
+    [#list tag_bean.items as item]
+    [#if item.field=="hy"]
+        [#assign hyAll=item.optValue/]
+    [#elseif item.field=="em"]
+        [#assign emAll=item.optValue/]
+    [/#if]
+    [/#list]
+      <div class="doc_js_list clearfix"><span>文档类型：</span><label><input name="hy" value="" type="radio" checked="checked"/>不限</label>
+         [#list hyAll!?split(",") as opt]
+       	<label><input name="hy" value="${opt}" type="radio" [#if hy??][#if hy==opt]checked="checked"[/#if][/#if]/>${opt!}</label>
+         [/#list]
+      </div>
+      <div class="doc_js_list clearfix"><span>所属行业：</span><label><input name="em" value="" type="radio" checked="checked"/>不限</label>
+          [#list emAll!?split(",") as opt]
+     	<label><input name="em" value="${opt}" type="radio" [#if em??][#if em==opt]checked="checked"[/#if][/#if]/>${opt!}</label>
+          [/#list]
+      </div>
+      [/@cms_model]
+      <input type="hidden" name="tpl" value="doc"/><input type="submit" value="查询" class="doc_js_btn">
+    </div> 
+     [@cms_content_page count='10' s_hy='${hy!}' o_hy='eq' s_em='${em!}' o_em='eq' orderBy='4' titLen='110' channelId='81' channelOption='1' dateFormat='yyyy-MM-dd' open='1']
+     [#list tag_pagination.list as a]
+    <div class="wenku_item clearfix">
+      <a href="${a.url}">
+      <div class="wenku_item_img"><img src="${a.typeImg!site.defImg}"></div>
+      <div>
+        <div class="wt">${a.title}
+                   [#if a.fileSuffix??]
+	          [#if a.fileSuffix="doc"||a.fileSuffix="docx"||a.fileSuffix="wps"]<img src="/${res}/images/word.gif">[/#if]
+    [#if a.fileSuffix="ppt"||a.fileSuffix="pptx"]<img src="/${res}/images/PPT.gif">[/#if]
+    [#if a.fileSuffix="pdf"]<img src="/${res}/images/PDF.gif">[/#if]
+	           [/#if]
+        </div>
+        <div class="wc">财富值：<span>${a.downNeed!}</span><em>${a.date?string(dateFormat)}</em></div>
+        <div class="wd">[@text_cut s=a.description! len=titLen append='...'/]</div>
+      </div>
+      </a>
+    </div> 
+    [/#list]
+    [@cms_pagination sysPage='1'/]
+    [/@cms_content_page] 
+  </section>
+  <section class="wenku_hot">
+    <h1>热门文档</h1>
+    <div class="wenku_hot_list">
+    [@cms_content_list count='10' orderBy='9' titLen='25' channelId='81' channelOption='1' dateFormat='yyyy-MM-dd']
+      <ul>
+      [#list tag_list as a]
+        <li><a href="${a.url}">${a.title}</a></li>
+      [/#list]
+      </ul>
+    [/@cms_content_list]
+    </div>
+  </section>
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

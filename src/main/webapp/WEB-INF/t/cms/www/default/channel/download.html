@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${channel.title!channel.name} - ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="keywords" content="${channel.keywords!}"/>
+<meta http-equiv="description" content="${channel.description!}"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script type="text/javascript" src="/${res}/js/jquery.SuperSlide.js"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+$(function() {
+	Cms.channelViewCount("${base}","${channel.id}");
+	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+function g(o){
+	return document.getElementById(o);
+}
+function HoverLi(x,y,m,n,counter){
+	for(var i=1;i<=counter;i++){
+		g(x+m+i).className='normaltab';
+		g(y+m+i).className='undis';
+	}
+	g(y+m+n).className='dis';
+	g(x+m+n).className='curr';
+}
+</script>
+
+<head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="main container video clearfix"> 
+  <section class="dl_banner">
+    <span class="dl_banner_pre" title="上一张"></span>
+	<span class="dl_banner_next" title="下一张"></span>
+    <div class="bd">
+[@cms_content_list typeId='2' orderBy='4' channelId=channel.id titLen='35' channelOption='1' dateFormat='yyyy-MM-dd HH:mm:ss']
+      [#list tag_list as a]
+    <div class="v_item">
+      <div class="v_item_img"><a href="${a.url}"><img src="${a.typeImg!site.defImg}"></a></div>
+      <div class="v_item_txt">
+        <h1><a href="${a.url}">[@text_cut s=a.title len=titLen append='...'/]</a></h1>
+        <p>${a.date?string(dateFormat)}  |  文件大小：${a.attr.size!}  |  下载：${a.downs!}</p>
+        <div class="video_dis">[@text_cut s=a.description len=86 append='...'/]</div>
+        <div class="dl_Btn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">Download&nbsp;&nbsp;&nbsp;立即下载</a>[/#if]</div>
+      </div>
+    </div>
+    [/#list]
+    </div>    
+    <div class="hd">
+      <ul>
+        [#list tag_list as a]
+        <li></li>
+        [/#list]
+      </ul>
+    </div>
+      [/@cms_content_list]
+    <script type="text/javascript">
+		$(document).ready(function(){
+				
+		    $(".dl_banner").hover(function(){
+				$(this).find(".dl_banner_pre,.dl_banner_next").stop(true, true).fadeTo("show", 1)
+			},function(){
+				$(this).find(".dl_banner_pre,.dl_banner_next").fadeOut()
+			});
+					
+			$(".dl_banner").slide({
+				titCell: ".hd li ",
+				mainCell: ".bd",
+				delayTime: 200,
+				interTime: 3000,
+				prevCell:".dl_banner_pre",
+				nextCell:".dl_banner_next",
+				effect: "fold",
+				autoPlay: true,
+				trigger: "click",
+			});
+		
+		});
+        </script>
+  </section> 
+  <section class="dl_main clearfix">
+    <section class="dl_cls">
+      <div class="dl_cls_nav">
+        [@cms_channel_list parentId='78' orderBy='4']
+        [#list tag_list as c]
+        <a href="${c.url}" onmouseover="HoverLi('tc_','tcn_',1,${c_index+1},${tag_list?size});" [#if c_index<1]class="curr"[#else]class="normaltab"[/#if] id="tc_1${c_index+1}">${c.name}</a>
+        [/#list]
+        [/@cms_channel_list]
+      </div>
+      <div class="dis" id="tcn_11">
+        <div class="dl_cls_list clearfix">
+        [@cms_content_list recommend='1' orderBy='4' channelId='78' channelOption='1' count='18']
+        <ul>
+          [#list tag_list as a]
+          <li><a href="${a.url}"><img src="${a.titleImg!}"></a><p><a href="${a.url}">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a></p></li>
+          [/#list]
+        </ul>
+        [/@cms_content_list]
+        </div>
+      </div>
+      [@cms_channel_list parentId='78' orderBy='4']
+      [#list tag_list as c]
+        [#if c_index>0]
+      <div class="undis" id="tcn_1${c_index+1}">
+        <div class="dl_cls_list clearfix">
+        [@cms_content_list orderBy='4' channelId=c.id channelOption='1' count='18']
+        <ul>
+          [#list tag_list as a]
+          <li><a href="${a.url}"><img src="${a.titleImg!}"></a><p><a href="${a.url}">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a></p></li>
+          [/#list]
+        </ul>
+        [/@cms_content_list]
+        </div>
+      </div>
+        [/#if]
+      [/#list]
+      [/@cms_channel_list]
+    </section> 
+    <section class="dl_charts">
+      <div class="dl_charts_nav"><h1>下载排行</h1></div>
+      [@cms_content_list count='1' orderBy='17' titLen='25' channelId=channel.id channelOption='1']
+      [#list tag_list as a]
+      <div class="dl_charts_list first" style="margin-top:5px; border-top:0;">
+        <div class="shr" style="margin-top:5px; border-top:0;">
+          <span>1</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix" style="display:block; margin-top:5px; border-top:0;">
+          <span>1</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#list]
+      [/@cms_content_list]
+      [@cms_content_list count='2' orderBy='17' titLen='25' channelId=channel.id channelOption='1']
+      [#list tag_list as a]
+      [#if a_index>0]
+      <div class="dl_charts_list second">
+        <div class="shr" style="display:block;">
+          <span>2</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix">
+          <span>2</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+      [@cms_content_list count='3' orderBy='17' titLen='25' channelId=channel.id channelOption='1']
+      [#list tag_list as a]
+      [#if a_index>1]
+      <div class="dl_charts_list third">
+        <div class="shr" style="display:block;">
+          <span>3</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix">
+          <span>3</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+      [@cms_content_list count='10' orderBy='17' titLen='25' channelId=channel.id channelOption='1']
+      [#list tag_list as a]
+      [#if a_index>2]
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>${a_index+1}</span><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a> 
+        </div>
+        <div class="open clearfix">
+          <span>${a_index+1}</span>
+          <div class="clearfix">
+          <a href="${a.url}"><img src="${a.titleImg!}"></a>
+          <div class="dl_txt"><a href="${a.url}" class="name">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a><p>下载 <em>${a.downs!}</em> 次</p></div> 
+          <div class="dl_smbtn">[#if a.attachments?size>0]<a href="${a.attachments[0].path!}">下载</a>[/#if]</div>
+          </div> 
+        </div>
+      </div>
+      [/#if]
+      [/#list]
+      [/@cms_content_list]
+      <script>
+        $(document).ready(function(){
+			$(".dl_charts_list").hover(function(){
+				$(".open").css("display","none");
+				$(".shr").css("display","block");
+				$(this).children(".shr").css("display","none");
+				$(this).children(".open").css("display","block");				
+				})
+			})
+      </script>
+    </section> 
+  </section> 
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

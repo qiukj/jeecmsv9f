@@ -1,0 +1,66 @@
+<nav class="nav">
+     [@cms_channel_list]
+      <ul class="menu">
+     [#if !channel??]     
+      [#list tag_list as c]
+      [#if c_index<3]
+        <li><a href="${c.url}">${c.name}</a></li>
+      [/#if]
+      [/#list]
+        <li><a href="http://bbs.jeecms.com" target="_blank">论坛</a></li>     
+        <li class="more">      
+      [#list tag_list as c]
+      [#if c_index==3] 
+      <a href="${c.url}">${c.name}</a>
+      [/#if]
+      [/#list]      
+          <ul class="menu-child">
+            [#list tag_list as c]
+              [#if c_index>3]
+            <li><a href="${c.url}">${c.name}</a></li>
+              [/#if]
+            [/#list]
+          </ul>
+        </li> 
+     [#else]  
+      [#list tag_list as c]
+      [#if c_index<3]
+        <li [#if channel??&&channel.id==c.id]class="on"[/#if]><a href="${c.url}">${c.name}</a></li>
+      [/#if]
+      [/#list]
+        <li><a href="http://bbs.jeecms.com" target="_blank">论坛</a></li>     
+        <li class="more"> 
+       [#assign before=true/]     
+      [#list tag_list as c]
+      [#if c_index>3] 
+          [#if c.id==channel.id]
+               [#assign before=false/]     
+               <a href="${channel.url}">${channel.name}</a>
+         [/#if]
+       [/#if]
+      [/#list]      
+      [#list tag_list as c]
+          [#if before&&c_index==3]
+                 <a href="${c.url}">${c.name}</a>
+           [/#if]
+       [/#list]  
+          <ul class="menu-child">
+            [#assign before=false]
+            [#list tag_list as c]
+                [#if c_index<3&&c.id==channel.id]
+                    [#assign before=true] 
+                [/#if]
+            [/#list]  
+            [#list tag_list as c]
+                    [#if c_index>2&& c.id!=channel.id]
+                        [#if !(c_index==3&&before)]
+                                 <li><a href="${c.url}">${c.name}</a></li>
+                         [/#if]
+                    [/#if]
+            [/#list]
+          </ul>
+        </li> 
+       [/#if]   
+      </ul>
+     [/@cms_channel_list]
+    </nav>

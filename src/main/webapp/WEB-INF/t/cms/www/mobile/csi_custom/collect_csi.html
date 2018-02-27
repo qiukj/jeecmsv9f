@@ -1,0 +1,15 @@
+<span id="cancelSpan" style="display:none; cursor: pointer;">取消收藏</span>
+<span id="comfirmSpan" style="display:none;cursor: pointer;">收藏</span>
+[#if user??]
+<script type="text/javascript">
+$(function() {
+       Cms.collectexist("${base}","${contentId!}","cancelSpan","comfirmSpan");
+       $("#comfirmSpan").click(function(){
+    	   Cms.collect("${base}","${contentId!}",1,"cancelSpan","comfirmSpan");
+       });
+       $("#cancelSpan").click(function(){
+    	   Cms.collect("${base}","${contentId!}",0,"cancelSpan","comfirmSpan");
+       });
+});
+</script>
+[/#if]

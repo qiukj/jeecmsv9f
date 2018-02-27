@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>${site.name} - Powered by JEECMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="keywords" content="${vote.title?html}"/>
+<meta http-equiv="description" content="${vote.title?html}"/>
+
+<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css"> 
+
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	Cms.siteFlow("${base}", location.href, document.referrer);
+	[#if vote.limitWeiXin]
+	if (!Cms.isOpenInWeiXin()) {
+	    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&redirect_uri=xxx&response_type=code&scope=snsapi_base&state=jeecms#wechat_redirect';
+	}
+	[/#if]
+});
+</script>
+</head>
+<body>
+<div class="viewport">
+  [#include "../include/header_wldc.html" /]
+  <div class="vote-mobile" style="padding:10px;">
+  <form name="votes" action="${base}/vote.jspx" method="post" target="_blank">
+  <input type="hidden" name="voteId" value="${vote.id}"/>
+  <table width="100%" border="0" cellspacing="5" cellpadding="0">
+    <tr>
+      <td height="30" colspan="2" align="center"><h1>${vote.title?html}</h1>
+    </tr>
+    [#if vote.description??]
+    <tr>
+      <td colspan="2" align="left"><h3>${vote.description?html}</h3></td>
+    </tr>
+    [/#if]
+    [#list vote.subtopics as subTopic]
+    <tr>
+      <td height="30" colspan="2" align="left">
+      <span style="color:#1c77ba;">${subTopic_index+1}、${subTopic.title?html}</span>
+      </td>
+    </tr>
+    	[#if subTopic.isRadio]
+			 <tr>
+			 	<td height="30" colspan="2" align="left">
+	    		[#list subTopic.voteItems as item]
+	    			<input type="radio" name="itemIds${subTopic.id}" value="${item.id}"/>${item_index+1}.${item.title?html}
+				[/#list]
+				</td>
+			</tr>
+		[/#if]
+		[#if subTopic.isMulti]
+			<tr>
+				<td height="30" colspan="2" align="left">
+					[#list subTopic.voteItems as item]
+				      <input type="checkbox" name="itemIds${subTopic.id}" value="${item.id}"  id="${item.id}"/>${item_index+1}.${item.title?html}
+				    [/#list]
+			    </td>
+			</tr>
+		[/#if]
+		[#if subTopic.isText]
+			<tr>
+				<td height="30" colspan="2" align="left">
+					<input name="reply" type="text" class="vote-txt"/>
+				</td>
+			 </tr>
+		[/#if]
+		 <input name=subIds type="hidden" value="${subTopic.id}"/>
+    [/#list]
+    <tr>
+      <td height="35" colspan="2" align="center" valign="bottom"><input type="submit" value="提 交" class="vote-submit"/>
+      <p><a href="${base}/vote_result.jspx?voteId=${vote.id}" target="_blank" class="to-vote-result">查看投票结果</a></p></td>
+    </tr>
+  </table>
+</form>
+</div>
+</div>
+</body>
+</html>

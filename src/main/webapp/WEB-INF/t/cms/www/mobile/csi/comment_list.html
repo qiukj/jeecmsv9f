@@ -1,0 +1,70 @@
+<div class="content-comment-list">
+      <h1>评论列表<span>[#if content??]${content.commentsCheckedNum!}[/#if]条评论</span></h1>
+       [#list list as c]
+      <div class="item">
+        <div class="comment-username">[#if c.commentUser??]${(c.commentUser.username)!"匿名网友"}[#else]匿名网友[/#if]</div>
+        <div class="comment-text">${c.textHtml!}</div>
+        <div class="comment-bottom clearfix"><span>${c.createTime}</span><div class="comment-icon"><a class="zan" onclick="Cms.commentUp('${base}',${c.id},${c.ups},'commentups_${c.id}')"><span id="commentups_${c.id}">${c.ups!}</span></a><a class="reply-icon" id="commentreply_${c.id}" onclick="Cms.commentInputLoad('${base}','commentInputDiv_','commentInputDiv_${c.id}','${contentId!}','${c.id}')">回复</a></div></div>
+        <div class="reply" id="commentInputDiv_${c.id}"></div>
+        [#if c??&&c.replyCount>0]
+        <div class="child">
+          <div class="item">
+            <div class="comment-username">[#if c.replayUser??]${(c.replayUser.username)!"管理员"}[#else]匿名[/#if]</div>
+            <div class="comment-text">${c.replayHtml!}</div>
+            <div class="comment-bottom clearfix">
+              <span>[#if c.replayTime??]${c.replayTime?string("yyyy-MM-dd HH:mm:ss")}[/#if]</span>
+              <div class="comment-icon"><a class="zan" onclick="Cms.commentUp('${base}',${c.id},${c.ups},'commentups_${c.id}')"><span id="commentups_${c.id}">${c.ups!}</span></a></div>
+            </div>
+          </div>
+        </div>
+        [/#if]
+      </div>
+      [/#list]
+      <script>
+      $(document).ready(function(){
+                 [#if !parentId??]
+                $(".reply-icon").bind("click", function(){
+                   $(this).parent().parent().siblings(".reply").animate({height:'toggle'},10);
+			if ($(this).text() == '回复' ) {
+			    $(this).text('取消').addClass('reply-lan');
+		        } else {
+				$(this).text('回复').removeClass('reply-lan');
+			};	  
+                });
+               [#else]
+                    $(".reply-icon").unbind();
+                    $(".reply-icon").bind("click", function(){
+                     $(this).parent().parent().siblings(".reply").animate({height:'toggle'},10);
+			if ($(this).text() == '回复' ) {
+			    $(this).text('取消').addClass('reply-lan');
+		        } else {
+				$(this).text('回复').removeClass('reply-lan');
+			};	  
+                  });
+              [/#if]  
+	      $(".comment-icon .zan").click(function(){
+                         $(this).addClass("zan-lan");	    
+		 });
+	});
+      </script>
+      
+    </div>
+<div id="commentDialog" style="display:none;"></div>
+<script type="text/javascript">
+$(function() {
+	$("#commentDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 500,
+		height: 600,
+		position: ["center",20],
+		buttons: {
+			"关闭": function() {
+				$(this).dialog("close");
+			}
+		},
+		close: function(event, ui) {
+		}
+	});
+});
+</script>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.assist">
+	<class
+		name="CmsAccountDraw"
+		table="jc_account_draw"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="integer"
+			column="account_draw_id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="applyAccount"
+			column="apply_account"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="applyAmount"
+			column="apply_amount"
+			type="java.lang.Double"
+			not-null="true"
+			length="22"
+		/>
+		<property
+			name="applyStatus"
+			column="apply_status"
+			type="java.lang.Short"
+			not-null="true"
+		/>
+		<property
+			name="applyTime"
+			column="apply_time"
+			type="timestamp"
+			not-null="true"
+			length="19"
+		/>
+		
+		<many-to-one name="drawUser" column="draw_user_id" class="com.jeecms.core.entity.CmsUser" not-null="true"></many-to-one>
+		<many-to-one name="accountPay" column="account_pay_id" class="CmsAccountPay" not-null="false"></many-to-one>
+		
+
+	</class>	
+</hibernate-mapping>

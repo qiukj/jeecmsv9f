@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微信支付 - ${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	setInterval("queryStatus()", 30000); 
+});
+function queryStatus() {
+	var rePayUrl="${base}/content/selectPay.jspx?contentId=${content.id!}&orderNumber=${orderNumber!}&payMethod=1";
+    $.ajax({
+        url: "${base}/order/payCallByWeiXin.jspx?orderNumber=${orderNumber!}",
+        type: "POST",
+        dataType:"json",
+        data: "",
+        success: function (data) {
+            if (data.status==0||data.status==4) { //订单状态为0表示支付成功
+               alert("支付成功");
+               window.location.href = "${content.mobileUrl!}"; 
+            }else if(data.status==1){
+            	alert("微信扫码支付密钥错误，请通知管理员");
+            }else if(data.status==2){
+            	alert(data.error);
+            	window.location.href=rePayUrl;
+            }else if(data.status==3){
+            	alert("支付参数错误，请重新支付!");
+            	window.location.href=rePayUrl;
+            }
+        }
+    });
+} 
+</script>
+</head>
+<body>
+<div class="w1187b">
+    <div class="w1173">
+		<div class="position">您当前的位置：<a href="${base}/" target="_blank">首页</a>&nbsp;&gt;&nbsp;</div>
+			微信扫码支付：${payAmount!}<br/>
+            <img src="${base}/special/o_create_dimensioncode.jspx?content=${code_url!}" style="width:300px;height:300px;"/>
+	</div>
+</div>
+</body>
+</html>

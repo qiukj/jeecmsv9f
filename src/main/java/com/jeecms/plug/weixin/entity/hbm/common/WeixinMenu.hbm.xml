@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.plug.weixin.entity">
+	<class
+		name="WeixinMenu"
+		table="jg_weixinmenu"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id name="id" type="java.lang.Integer" column="wm_id"><generator class="identity"/></id>
+		
+
+		<property
+			name="name"
+			column="wm_name"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="type"
+			column="wm_type"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="url"
+			column="wm_url"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="key"
+			column="wm_key"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<many-to-one
+			name="parent"
+			column="wm_parent_id"
+			class="WeixinMenu"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="site"
+			column="site_id"
+			class="com.jeecms.core.entity.CmsSite"
+			not-null="true"
+		>
+		</many-to-one>
+		<set name="child" inverse="true" cascade="delete">
+			<cache usage="read-write"/>
+			<key column="wm_parent_id"/>
+			<one-to-many class="WeixinMenu"/>
+		</set>
+
+	</class>	
+</hibernate-mapping>

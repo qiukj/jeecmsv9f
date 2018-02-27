@@ -1,0 +1,36 @@
+<link href="${resSys}/design/css/jquery.bxslider.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+ul.bxslider li img {margin: 0 auto; width:100%}
+</style>
+<div>
+	<ul class="bxslider">
+	[@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        [#list tag_list as c]
+		<li><a href="${c.url!}" target="_blank">[#if imgType=="1"]<img src="${c.titleImg!}" title="${c.title!}" />[#else]<img src="${c.typeImg!}" title="${c.title!}" />[/#if]</a></li>
+		[/#list]
+    [/@cms_content_list]
+	</ul>
+</div>
+<div class="outside">
+  <p><span id="slider-prev"></span><span id="slider-next"></span></p>
+</div>
+<script type="text/javascript">
+$(function(){
+    $.getScript("${resSys}/design/js/jquery.bxslider.min.js", function() {
+		$('.bxslider').bxSlider({
+			mode: 'fade',
+			nextSelector: '#slider-next',
+			prevSelector: '#slider-prev',
+			nextText: '',
+			prevText: '',
+	  		auto: true,
+	  		onSliderLoad: function(){
+				var height=$(".bxslider").parent().css("height");
+				var width=$(".bxslider").parent().css("width");
+				var boxHeight=height.substring(0,height.indexOf("px"))-70;
+				$(".bx-viewport,.bxslider").css("height",boxHeight+"px").css("width",width);
+			}
+		});
+	});
+});
+</script>

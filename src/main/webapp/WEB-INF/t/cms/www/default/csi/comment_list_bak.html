@@ -1,0 +1,45 @@
+<dl class="rmpl">
+[#list list as c]
+  <dt><span>${(c.commentUser.username)!"匿名网友"}</span> 于 ${c.createTime} 评论道:</dt>
+  <dd>${c.textHtml!}</dd>
+  [#if c.replayHtml??]
+  [#if c.replayTime??]
+  <dt><span>${(c.replayUser.username)!"管理员"}</span> 于 ${c.replayTime?string("yyyy-MM-dd HH:mm:ss")} 回复:${(c.commentUser.username)!"匿名网友"}</dt>
+  <dd>${c.replayHtml!}</dd>
+  [/#if]
+  [/#if]
+  <span class="commentup" onclick="Cms.commentUp('${base}',${c.id},${c.ups},'commentups_${c.id}')">顶</span>
+  <span id="commentups_${c.id}">${c.ups!}</span>
+  &nbsp;&nbsp;
+  <span class="commentdown" onclick="Cms.commentDown('${base}',${c.id},${c.downs},'commentdowns_${c.id}')">踩</span>
+  <span id="commentdowns_${c.id}">${c.downs!}</span>
+  &nbsp;&nbsp;
+  <span id="commentreply_${c.id}" onclick="Cms.commentInputLoad('${base}','commentInputDiv_','commentInputDiv_${c.id}','${contentId!}','${c.id}')">回复</span>
+  &nbsp;&nbsp;
+  [#if c.replyCount>0]
+  <span id="commentviewreply_${c.id}" onclick="Cms.commentListMore('${base}','commentDialog',{parentId:${c.id},contentId:${contentId!},orderBy:0,count:5,checked:1})">查看回复(${c.replyCount!})</span>
+  [/#if]
+  <div id="commentInputDiv_${c.id}"></div>
+  <dd class="line"></dd>
+[/#list]
+</dl>
+<div id="commentDialog" style="display:none;"></div>
+<script type="text/javascript">
+$(function() {
+	$("#commentDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 500,
+		height: 600,
+		position: ["center",20],
+		buttons: {
+			"关闭": function() {
+				$(this).dialog("close");
+			}
+		},
+		close: function(event, ui) {
+			
+		}
+	});
+});
+</script>

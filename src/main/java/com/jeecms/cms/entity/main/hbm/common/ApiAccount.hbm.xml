@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.main">
+	<class
+		name="ApiAccount"
+		table="jc_api_account"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="integer"
+			column="id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="appId"
+			column="app_id"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="appKey"
+			column="app_key"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="aesKey"
+			column="aes_key"
+			type="string"
+			not-null="true"
+			length="100"
+		/>
+		<property
+			name="ivKey"
+			column="iv_key"
+			type="string"
+			not-null="true"
+			length="100"
+		/>
+		<property
+			name="disabled"
+			column="disabled"
+			type="java.lang.Boolean"
+			not-null="true"
+		/>
+		<property
+			name="admin"
+			column="is_admin"
+			type="java.lang.Boolean"
+			not-null="true"
+		/>
+		<property
+			name="limitSingleDevice"
+			column="limit_single_device"
+			type="java.lang.Boolean"
+			not-null="true"
+		/>
+		
+		<set name="callRecords" inverse="true" lazy="true">
+			<key column="id"/>
+			<one-to-many class="ApiRecord"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

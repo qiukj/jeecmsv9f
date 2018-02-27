@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jeecmsv9f:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="jeecmsv9f.war">
+      <element id="artifact" artifact-name="jeecmsv9f:war exploded" />
+    </root>
+  </artifact>
+</component>

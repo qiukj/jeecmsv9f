@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${title} - ${site.name} - Powered by JEECMS</title>
+<meta content="${content.tagStr!}" http-equiv="keywords" />
+<meta content="${content.description!}" http-equiv="description" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+<head>
+<body style="background-color:#f9f9f9;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container video clearfix">  
+  <section class="job-top">
+    <h1>${content.title}</h1>
+    <div class="job-des"><span class="ye">${content.attr.salary!}</span>|<span>${content.attr.workplace!}</span>|<span>${content.attr.nums!}</span>|<span>${content.attr.nature!}</span>|<span>${content.attr.education!}</span>|  <span>${content.attr.experience!}</span></div>
+    <div class="job-tag">[#list content.tags as t]<span>${t.name!}</span>[/#list]</div>
+    <div class="job_btn" onclick="Cms.jobApply('${base}','${content.id}');">投递简历</div>
+  </section> 
+  <section class="job-item">
+    <h1>职位介绍</h1>
+    <div class="job-item-txt">
+      ${txt!}
+    </div>
+  </section>
+  <section class="job-item">
+    <h1>公司介绍</h1>
+    <div class="job-item-txt">
+      <p><a href="http://www.jeecms.com" target="_blank">${content.companyName!}</a></p>
+      <p><span>公司性质:</span> ${content.companyNature!}</p>
+      <p><span>公司行业:</span> ${content.companyIndustry!}</p>
+      <p><span>公司规模:</span> ${content.companyScale!}</p>
+      <p><span>公司地址:</span> ${content.companyAddr!}</p>
+    </div>
+  </section>
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

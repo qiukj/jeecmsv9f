@@ -1,0 +1,16 @@
+<div class="gotop"><a href="#"></a></div>
+<script>
+    function getTop(){
+        var top = $(document).scrollTop();
+        if($(document).scrollTop()>200){
+            $(".gotop").css({
+                'display':'block',
+            });
+        } else {
+            $(".gotop").css('display','none');
+        }
+        setTimeout(getTop);
+    }
+     
+    getTop();
+</script>

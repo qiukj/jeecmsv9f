@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.main">
+	<class
+		name="ApiUserLogin"
+		table="jc_api_user_login"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="java.lang.Long"
+			column="id"
+		>
+			<generator class="identity"/>
+		</id>
+
+		<property
+			name="sessionKey"
+			column="session_key"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="username"
+			column="username"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="loginTime"
+			column="login_time"
+			type="timestamp"
+			not-null="true"
+			length="19"
+		/>
+		<property
+			name="loginCount"
+			column="login_count"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		
+		<property
+			name="activeTime"
+			column="active_time"
+			type="timestamp"
+			not-null="false"
+			length="19"
+		/>
+
+
+	</class>	
+</hibernate-mapping>

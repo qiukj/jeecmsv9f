@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui">
+<title>${site.name} - Powered by JEECMS</title>
+<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css"> 
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+});
+function return_prepage()  
+{  
+if(window.document.referrer==""||window.document.referrer==window.location.href)  
+{  
+window.location.href="{dede:type}[field:typelink /]{/dede:type}";  
+}else  
+{  
+window.location.href=window.document.referrer;  
+}  
+  
+}  
+</script>
+</head>
+
+<body>
+<div class="viewport">
+  <header class="header">
+  登录
+  <div class="header-icon-left"><a class="header-back" href="javascript:return_prepage();"></a></div>
+  <div class="header-icon-right"><a class="to-register" href="${base}/register.jspx">注册</a></div>
+  </header>
+  <form id="jvForm" action="${base}/login.jspx" method="post">
+  <div class="login-box">
+    [#if loginSource??]
+        <div class="login-source">
+   	[#if loginSource=="needPerm"]
+   	 该文章需要会员登录后才能浏览！
+   	[#elseif loginSource=="charge"]
+   	 该文章是收费文章，需要会员登录付费后才能浏览！
+   	[/#if]
+         </div>
+    [/#if] 
+      [#if message??]            
+      [#if message=="true"]
+	 您必须登录后才能继续刚才的操作
+	 [#else]
+	 <div class="login-source">${message}</div>
+	 [/#if]
+         <input type="hidden" name="message" value="${message}"/>                   
+      [/#if]	
+   [#if processUrl??]<input type="hidden" name="processUrl" value="${processUrl}"/>[/#if]
+				[#if returnUrl??]<input type="hidden" name="returnUrl" value="${returnUrl}"/>[#else]<input type="hidden" name="returnUrl" value="/"/>[/#if]
+				[#if error??]
+				<div class="login-source">
+						[#if error=="org.apache.shiro.authc.IncorrectCredentialsException"]
+						[@s.m "error.invalidPassword"/]
+						[#elseif error=="org.apache.shiro.authc.UnknownAccountException"]
+						[@s.m "error.usernameNotExist"/]
+						[#elseif error=="com.jeecms.common.security.CaptchaErrorException"]
+						[@s.m "error.invalidCaptcha"/]
+						[#elseif error=="com.jeecms.common.security.DisabledException"]
+						[@s.m "error.userDisabled"/]
+						[#elseif error=="com.jeecms.common.security.InactiveException"]
+						[@s.m "error.userInActive"/]
+ 						[/#if]
+				</div>	
+				[/#if]
+[#if success??]
+				[#if success]
+					 <div class="login-source">注册成功！</div>
+				[/#if]
+    
+      [/#if]
+    <div class="login-input"><input type="text" id="username" name="username" class="username" placeholder="用户名"></div>
+    <div class="login-input"><input type="password" id="password" name="password" class="password" placeholder="密码"></div>
+    [#if (errorTimes??&&errorTimes<=0)||(errorRemaining?? && errorRemaining<=0)]
+    <div class="login-input"><input type="text" id="captcha" name="captcha" class="captcha" placeholder="验证码"><img id="guestbookCaptcha" onclick="this.src='${base}/captcha.svl?d='+new Date()" alt="" src="${base}/captcha.svl"></div>
+    [/#if]
+    <div class="login-btn"><input type="submit" class="login-submit" value="登 录"></div>
+    <div class="login-txt"><a class="to-fpw" href="${base}/member/forgot_password.jspx">忘记密码?</a></div>
+  </div>
+  <div id="content-share" class="login-share">
+      <h1><span class=" login-nav">一键登录</span></h1>
+      <div class="quick-list clearfix">
+      
+      <a class="quick-qq" id="qqLoginBtn" title="用QQ账号登录"></a>
+      <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="${site.config.qqID!}" data-redirecturi="http://${site.domain}/public_auth.jspx" charset="utf-8"></script>
+					<script type="text/javascript">
+						//插入按钮的节点qqLoginBtn id
+					    QC.Login({btnId:"qqLoginBtn",size: "A_M"}, function(reqData, opts){//登录成功
+					       //根据返回数据，更换按钮显示状态方法
+					       var dom = document.getElementById(opts['btnId']),
+					       _logoutTemplate=[
+					            //头像
+					         //   '<span><img src="{figureurl}" class="{size_key}"/></span>',
+					            //昵称
+					            '<span>{nickname}</span>',
+					            //退出
+					            '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
+					       ].join("");
+					       dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+					           nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+					           figureurl : reqData.figureurl
+					       }));
+					       var userId=null;
+                           [#if user??]
+                           userId="${user.id}";
+                           [/#if]
+                           if(QC.Login.check()&&userId==null){
+                                     QC.Login.signOut();          
+                           }
+					   });
+					 </script>
+     
+      <a class="quick-tx" id="qqwebo_login_btn" title="用腾讯微博账号登录"></a>
+      <script type="text/javascript" src="http://mat1.gtimg.com/app/openjs/openjs.js"></script>
+                    	<script type="text/javascript">
+                    		T.init({
+                    		    appkey: ${site.config.qqWeboID!}, 
+                    		    autoclose:false,
+                    		    callbackurl:"http://${site.domain}/public_auth.jspx"
+                    		});
+                    		 function logout(){
+                                 T.logout(function (loginStatus) { // 登出用户
+			    					// 登录成功
+								});
+                			}
+                    		$(function() {
+                        		$("#qqwebo_login_btn").click(function(){
+                        			T.login(function (loginStatus) { // 弹出登录窗口
+       							     // 本次登录成功
+       							       $.cookie("qqWeboId",loginStatus.openid);
+       							 	},function (error) {
+       							 	});
+                            	});
+                    		});
+						</script>
+	
+      
+      <a class="quick-sina" id="wb_connect_btn" title="用新浪微博账号登录"></a>
+      <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=${site.config.sinaID!}" type="text/javascript" charset="utf-8"></script>
+						<script type="text/javascript">
+						 WB2.anyWhere(function(W){
+						 W.widget.connectButton({
+						  id: "wb_connect_btn",
+						  type: '3,2',
+						  callback : {
+						   login:function(o){
+						    //登录成功之后执行
+						    location="${base}/public_auth.jspx";
+						   },
+						   logout:function(){
+						    //退出之后执行退出本地用户
+      						location="${base}/logout.jspx?returnUrl=/";
+						   }
+						  }
+						 });
+						});
+						</script>
+      
+    </div>
+       
+</div>
+  </form>
+  
+</div>
+</body>
+</html>

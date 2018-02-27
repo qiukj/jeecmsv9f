@@ -1,0 +1,40 @@
+<div id="content-share">
+      <h1><span>分享到</span></h1>
+      <div class="content-share-con" class="bdsharebuttonbox">
+        <a class="content-share-sina" href="javascript:window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.title.substring(0,76))+'&url='+encodeURIComponent(location.href)+'&rcontent=','_blank','scrollbars=no,width=320,height=450,left=0,top=20,status=no,resizable=yes'); void 0"></a>
+        <a class="content-share-weixin" data-cmd="weixin"></a>
+        <a class="content-share-qq" onclick="window.open('http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href));return false;"></a>
+        <a class="content-share-more" onClick="toshare()"></a>
+      </div>
+      <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"${site.name!}","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["weixin","tsina","qzone","tqq","sqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","tsina","qzone","tqq","sqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="am-share">
+         <div style="padding:20px 16px 16px 16px;"> 
+        <ul class="am-share-sns" class="bdsharebuttonbox">
+        <li><a href="javascript:window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.title.substring(0,76))+'&url='+encodeURIComponent(location.href)+'&rcontent=','_blank','scrollbars=no,width=320,height=450,left=0,top=20,status=no,resizable=yes'); void 0"> <i class="share-icon-sina"></i><span>新浪微博</span></a> </li>
+        <li><a data-cmd="weixin"> <i class="share-icon-weixin"></i><span>微信</span></a> </li>
+        <li><a onclick="window.open('http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href));return false;"> <i class="share-icon-qq"></i><span>QQ</span></a> </li>
+        <li><a onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;"> <i class="share-icon-qqzone"></i><span>QQ空间</span></a> </li>
+        </ul>
+          </div>
+      </div>
+      <script type="text/javascript">
+		function toshare(){
+			$(".am-share").addClass("am-modal-active");	
+			if($(".sharebg").length>0){
+				$(".sharebg").addClass("sharebg-active");
+			}else{
+				$("body").append('<div class="sharebg"></div>');
+				$(".sharebg").addClass("sharebg-active");
+			}
+			$(".sharebg-active").click(function(){
+				$(".am-share").removeClass("am-modal-active");	
+				setTimeout(function(){
+					$(".sharebg-active").removeClass("sharebg-active");	
+					$(".sharebg").remove();	
+				},300);
+			})
+		}	
+	  </script>
+       
+</div>

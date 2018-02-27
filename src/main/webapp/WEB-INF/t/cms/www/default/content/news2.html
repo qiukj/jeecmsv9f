@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${site.name} - Powered by JEECMS</title>
+<meta content="${content.tagStr!}" http-equiv="keywords" />
+<meta content="${content.description!}" http-equiv="description" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<script type="text/javascript"> 
+jQuery(document).ready(function($){ 
+$('.content-comment').click(function(){
+	$('html,body').animate({scrollTop:$('#comments-text').offset().top}, 1000)
+	$('#comments-text').focus();
+	});  
+});
+
+$(function(){
+	//设置一个定时器，为BUTTON点击事件用
+	var timer=null;
+	var number1=0;
+
+	//文本输入时改变
+	$('#comments-text').keyup(function(){
+		if(!$(this).val()==''){
+			$('.submit-on').attr("class", "submit-out");
+		}else{
+			$(".submit-out").attr("class", "submit-on");
+		}
+	});
+	
+	//处理输入的内容是文字还是字母的函数
+	function getLength(str){
+		return String(str).replace(/[^\x00-\xff]/g,'aa').length;
+	};
+     
+});
+</script>
+
+<head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <section class="content_w850">
+    <h1>${content.title}<a class="position" href="${base}/news/index.jhtml">${channel.name}</a></h1>
+    <div class="content-inf">发布时间：${content.releaseDate}&nbsp;&nbsp;作者：${content.author!'本站编辑'}&nbsp;&nbsp;来源：${content.origin!'本站原创'}&nbsp;&nbsp;浏览次数：<span id="views"></span>
+    <div class="content-action">
+	     [#if channel.commentControl!=2]
+		    <a class="content-comment">我有话说</a>
+		 [/#if]
+	     [#if channel.allowShare]
+	      | <span class="content-share">分享
+              [#include "inc_share.html"/]
+	     </span>
+	     [/#if]
+	      | <a class="content-collect" id="collectCsiDiv"></a>
+	    </div>
+    </div>
+    <div class="content-txt">
+   		[#if preview??]
+           [@text_cut s=txt! len=100  append="..."/]<br/>
+                               您需要更高的权限浏览全部内容!<br/>以下会员组可浏览全部内容:
+           [#list groups as g]
+              ${g.name!}[#if g_has_next],[/#if]
+           [/#list]              
+          [#else]
+            ${txt!}
+          [/#if]
+    </div>
+    <!-- 分页 -->
+    <div class="pagebar">[#include "../style_page/content.html"/]</div>
+    <div class="reward"><a href="${base}/content/reward.jspx?contentId=${content.id}"></a></div>
+    <div class="inter clearfix"> 
+      [#if channel.allowUpdown]
+      <div class="ups"><a onclick="Cms.up('${base}',${content.id},${content.ups});"><span id="ups"></span></a></div>
+      <div class="downs"><a onclick="Cms.down('${base}',${content.id},${content.downs});"><span id="downs"></span></a></div>
+      [/#if]
+      [#if channel.allowScore]
+      <div class="score">
+        [#include "inc_score.html"/]
+      </div>
+      [/#if]
+    </div>
+    <div class="content-link clearfix">
+      <span class="prev-content"><i></i>上一篇：[@cms_content id=content.id next='0' channelId=channel.id][#if tag_bean??]<a href="${tag_bean.url}">[@text_cut s=tag_bean.title len=20 append='...'/]</a>[#else]没有了[/#if][/@cms_content]</span>
+      <span class="next-content">下一篇：[@cms_content id=content.id next='1' channelId=channel.id][#if tag_bean??]<a href="${tag_bean.url}">[@text_cut s=tag_bean.title len=20 append='...'/]</a>[#else]没有了[/#if][/@cms_content]<i></i></span>
+    </div>
+    [#if channel.commentControl!=2]
+      [#include "inc_comment_input.html"/]
+      [#include "inc_comment_list.html"/]
+    [/#if]
+  </section>
+  [#include "../include/right310.html"/]
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

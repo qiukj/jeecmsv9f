@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/${res}/css/layout.css" rel="stylesheet" type="text/css"/>
+<title>${site.name} - Powered by JEECMS</title>
+<link rel="stylesheet" type="text/css" href="/${mobileRes!}/css/index.css">
+</head>
+<body>
+<div class="viewport">
+<div class="prompt">
+  <dl>
+    <dt></dt>
+    <dd class="msg">系统错误提示：</dd>
+	[#list errors as error]
+    <dd>${error_index+1}、${error}</dd>
+	[/#list]
+	<dd>【<a href="javascript:history.back();">点击这里返回上一页</a>】</dd>
+  </dl>
+</div>
+</div>
+</body>
+</html>

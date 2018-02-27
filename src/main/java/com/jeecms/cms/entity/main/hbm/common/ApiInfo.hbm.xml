@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.main">
+	<class
+		name="ApiInfo"
+		table="jc_api_info"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id
+			name="id"
+			type="integer"
+			column="id"
+		>
+			<generator class="identity"/>
+		</id>
+		<property
+			name="name"
+			column="api_name"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="url"
+			column="api_url"
+			type="string"
+			not-null="true"
+			length="255"
+		/>
+		<property
+			name="code"
+			column="api_code"
+			type="string"
+			not-null="true"
+			length="50"
+		/>
+		<property
+			name="disabled"
+			column="disabled"
+			type="boolean"
+			not-null="true"
+		/>
+		<property
+			name="limitCallDay"
+			column="limit_call_day"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="callTotalCount"
+			column="call_total_count"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="callMonthCount"
+			column="call_month_count"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="callWeekCount"
+			column="call_week_count"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		<property
+			name="callDayCount"
+			column="call_day_count"
+			type="integer"
+			not-null="true"
+			length="10"
+		/>
+		
+		<property
+			name="lastCallTime"
+			column="last_call_time"
+			type="timestamp"
+			not-null="false"
+			length="50"
+		/>
+	
+
+		<set name="callRecords" inverse="true" lazy="true">
+			<key column="id"/>
+			<one-to-many class="ApiRecord"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

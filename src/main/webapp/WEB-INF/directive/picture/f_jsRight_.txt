@@ -1,0 +1,48 @@
+<link type="text/css" href="${resSys}/design/css/focus_num2.css" rel="stylesheet" />
+<div>
+<div id="zSlider">
+	<div id="picshow">
+		<div id="picshow_img">
+			<ul>
+			[@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        		[#list tag_list as c]
+			  		<li><a href="${c.url!}" target="_blank">[#if imgType=="1"]<img src="${c.titleImg!}" title="${c.title!}" />[#else]<img src="${c.typeImg!}" title="${c.title!}" />[/#if]</a></li>
+				[/#list]
+		    [/@cms_content_list]
+			</ul>
+		</div>
+		<div id="picshow_tx">
+			<ul>
+			[@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        		[#list tag_list as c]
+				  <li>
+					  <h3><a href="${c.url!}" target="_blank">${c.title!}</a></h3>
+				  </li>
+				  [/#list]
+		    [/@cms_content_list]
+			</ul>
+		</div>
+	</div>
+	<div id="select_btn">
+		<ul>
+		[@cms_content_list channelId='#{channelId}' imgType='#{imgType}'  orderBy='#{orderBy}'  titLen='#{titLen}' count='#{count}'  useShortTitle='0' channelOption='1' siteId=site.id append='...']
+        	[#list tag_list as c]
+		  		<li><a href="${c.url!}" target="_blank">[#if imgType=="1"]<img src="${c.titleImg!}" title="${c.title!}" />[#else]<img src="${c.typeImg!}" title="${c.title!}" />[/#if]</a></li>
+			[/#list]
+		[/@cms_content_list]
+		</ul>
+	</div>	
+</div>
+</div>
+<script type="text/javascript">
+$(function(){
+ 	$.getScript("${resSys}/design/js/focus_num2.js");
+ 	var zSliderParentHeight=$(".zSlider").parent().css("height");
+ 	var zSliderParentWidth=$(".zSlider").parent().css("width");
+ 	$("#zSlider").css("height",zSliderParentHeight).css("width",zSliderParentWidth);
+ 	$("#picshow").css("height",zSliderParentHeight).css("width",zSliderParentWidth-100);
+ 	$("#picshow_img").css("height",zSliderParentHeight).css("width",zSliderParentWidth-100);
+ 	$("#picshow_tx").css("height",zSliderParentHeight).css("width",zSliderParentWidth-100);
+ 	$("#select_btn").css("height",zSliderParentHeight).css("width",100);
+ });
+</script>

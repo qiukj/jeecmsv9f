@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${channel.title!channel.name} - ${site.name} - Powered by JEECMS</title>
+<meta http-equiv="keywords" content="${channel.keywords!}"/>
+<meta http-equiv="description" content="${channel.description!}"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+$(function() {
+	Cms.channelViewCount("${base}","${channel.id}");
+	Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="main container video clearfix"> 
+  <section class="dl_main clearfix" style="margin-top:0;">
+    <section class="dl_cls dl_child">
+      <div class="dl_cls_nav dl_child_nav">
+        [@cms_channel_list parentId='78' orderBy='4']
+        [#list tag_list as c]
+        <a href="${c.url}" [#if channel??&&channel.id==c.id]class="curr"[#else]class="normaltab"[/#if]>${c.name}</a>
+        [/#list]
+        [/@cms_channel_list]
+      </div>
+      <div class="dl_cls_list clearfix">     
+      [@cms_content_page count='18' recommend='1' orderBy='4' titLen='10' channelId='78' channelOption='1']
+        <ul class="clearfix">
+        [#list tag_pagination.list as a]
+          <li><a href="${a.url}"><img src="${a.titleImg!}"></a><p><a href="${a.url}">[#if a.shortTitle??]${a.shortTitle}[#else]${a.title}[/#if]</a></p></li>
+        [/#list]
+        </ul>
+        [#include "../include/page.html"/]
+      [/@cms_content_page]
+      </div>
+    </section> 
+    <section class="dl_charts">
+      <div class="dl_charts_nav"><h1>下载排行</h1></div>
+      <div class="dl_charts_list first" style="margin-top:5px; border-top:0;">
+        <div class="shr" style="margin-top:5px; border-top:0;">
+          <span>1</span><a class="name">腾讯QQ</a> 
+        </div>
+        <div class="open clearfix" style="display:block; margin-top:5px; border-top:0;">
+          <span>1</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-QQ.jpg"></a>
+          <div class="dl_txt"><a class="name">腾讯QQ</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list second">
+        <div class="shr" style="display:block;">
+          <span>2</span><a class="name">360安全卫士</a> 
+        </div>
+        <div class="open clearfix">
+          <span>2</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-360safe.jpg"></a>
+          <div class="dl_txt"><a class="name">360安全卫士</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list third">
+        <div class="shr" style="display:block;">
+          <span>3</span><a class="name">360安全浏览器</a> 
+        </div>
+        <div class="open clearfix">
+          <span>3</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-360exp.jpg"></a>
+          <div class="dl_txt"><a class="name">360安全浏览器</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>4</span><a class="name">搜狗输入法</a> 
+        </div>
+        <div class="open clearfix">
+          <span>4</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-sougou.jpg"></a>
+          <div class="dl_txt"><a class="name">搜狗输入法</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>5</span><a class="name">爱奇艺视频</a> 
+        </div>
+        <div class="open clearfix">
+          <span>5</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-QIY.jpg"></a>
+          <div class="dl_txt"><a class="name">爱奇艺视频</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>6</span><a class="name">360杀毒</a> 
+        </div>
+        <div class="open clearfix">
+          <span>6</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-360shadu.jpg"></a>
+          <div class="dl_txt"><a class="name">360杀毒</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>7</span><a class="name">谷歌浏览器</a> 
+        </div>
+        <div class="open clearfix">
+          <span>7</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-google.jpg"></a>
+          <div class="dl_txt"><a class="name">谷歌浏览器</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>8</span><a class="name">PPTV聚力</a> 
+        </div>
+        <div class="open clearfix">
+          <span>8</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-PPTV.jpg"></a>
+          <div class="dl_txt"><a class="name">PPTV聚力</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>9</span><a class="name">迅雷7</a> 
+        </div>
+        <div class="open clearfix">
+          <span>9</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-xunlei7.jpg"></a>
+          <div class="dl_txt"><a class="name">迅雷7</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <div class="dl_charts_list">
+        <div class="shr" style="display:block;">
+          <span>10</span><a class="name">腾讯视频</a> 
+        </div>
+        <div class="open clearfix">
+          <span>10</span>
+          <div class="clearfix">
+          <a><img src="/${res}/images/dl-txsp.jpg"></a>
+          <div class="dl_txt"><a class="name">腾讯视频</a><p>下载 <em>32117</em> 次</p></div> 
+          <div class="dl_smbtn"><a>下载</a></div>
+          </div> 
+        </div>
+      </div>
+      <script>
+        $(document).ready(function(){
+			$(".dl_charts_list").hover(function(){
+				$(".open").css("display","none");
+				$(".shr").css("display","block");
+				$(this).children(".shr").css("display","none");
+				$(this).children(".open").css("display","block");				
+				})
+			})
+      </script>
+    </section> 
+  </section> 
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

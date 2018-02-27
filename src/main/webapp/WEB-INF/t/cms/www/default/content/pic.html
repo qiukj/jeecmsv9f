@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${title} - ${site.name} - Powered by JEECMS</title>
+<meta content="${content.tagStr!}" http-equiv="keywords" />
+<meta content="${content.description!}" http-equiv="description" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/piccontent.min.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<link type="text/css" rel="stylesheet" href="/${res}/css/piccontext.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+Cms.checkPerm("${base}","${content.id}");
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<head>
+<body style="background-color:#f9f9f9;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <!--弹出层开始-->
+  <div class="bodymodal"></div>
+  <!--播放到第一张图的提示-->
+  <div class="firsttop">
+    <div class="firsttop_right">
+      <div class="close2"> <a class="closebtn1" title="关闭" href="javascript:void(0)"></a> </div>
+      <div class="replay">
+        <h2 id="div-end-h2"> 已到第一张图片了。 </h2>
+        <p> <a class="replaybtn1" onClick="document.location.reload()">重新播放</a> </p>
+      </div>
+      <div class="pictwo">
+        <ul>
+          <li>
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">上一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>          
+          <li>
+           [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">下一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>
+        </ul>
+      </div>
+      <div class="returnbtn"> <a href="">返回图库首页</a> </div>
+    </div>
+  </div>
+  <!--播放到最后一张图的提示-->
+  <div class="endtop">
+    <div class="firsttop_right">
+      <div class="close2"> <a class="closebtn2" title="关闭" href="javascript:void(0)"></a> </div>
+      <div class="replay">
+        <h2 id="H1"> 已到最后一张图片了。 </h2>
+        <p> <a class="replaybtn2" onClick="document.location.reload()">重新播放</a> </p>
+      </div>
+      <div class="pictwo">
+        <ul>
+          <li>
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">上一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>          
+          <li>
+          [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+           <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a>
+           <div class="imgdivtext"> <a href="${tag_bean.url}" title="${tag_bean.title}">下一图集</a> </div>
+          [#else]
+           <a><img src="/${res}/images/no-pic.png" /></a>
+           <div class="imgdivtext"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+          </li>
+        </ul>
+      </div>
+      <div class="returnbtn"> <a href="${base}/pic/index.jhtml">返回图库首页</a> </div>
+    </div>
+  </div>
+  <!--弹出层结束--> 
+  <!--图片特效内容开始-->
+  <div class="piccontext">
+    <h2>${content.title}</h2>
+    <div class="content-inf">发布时间：${content.releaseDate}&nbsp;&nbsp;作者：${content.author!'本站编辑'}&nbsp;&nbsp;来源：${content.origin!'本站原创'}&nbsp;&nbsp;浏览次数：<span id="views"></span>
+     <div class="content-action"><a class="support">支持<img src="/${res}/images/jiantou1.jpg" />键翻阅图片</a> | <a class="content-comment" href="${base}/comment.jspx?contentId=${content.id!}">我有话说</a> | <span class="content-share">分享
+    [#include "inc_share.html"/]
+    </span> | <a class="content-collect" id="collectCsiDiv">收藏</a></div>
+     </div>
+    </div>
+    [#if pic??]
+    <!--大图展示-->
+    <div class="picshow">
+      <div class="picshowtop">
+          <a href="#"><img src="" alt="" id="pic1" curindex="0" /></a>
+          <a id="preArrow" href="javascript:void(0)" class="contextDiv" title="上一张"><span id="preArrow_A"></span></a>
+          <a id="nextArrow" href="javascript:void(0)" class="contextDiv" title="下一张"><span id="nextArrow_A"></span></a>
+      </div>
+      <div class="picshowtxt">
+        <div class="picshowtxt_left"><span>1</span>/<i>${content.pictures?size}</i></div>
+        <div class="picshowtxt_right"></div>
+      </div>
+      <div class="picshowlist"> 
+        <!--上一条图库-->
+        <div class="picshowlist_left">
+          [@cms_content id=content.id next='1' channelId=channel.id]
+          [#if tag_bean??]
+          <div class="picleftimg"> <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a> </div>
+          <div class="piclefttxt"> <a href="${tag_bean.url}">${tag_bean.title}</a> </div>
+          [#else]
+          <div class="picleftimg"> <a><img src="/${res}/images/no-pic.png" /></a> </div>
+          <div class="piclefttxt"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+        </div>
+        <div class="picshowlist_mid">
+          <div class="picmidleft"> <a href="javascript:void(0)" id="preArrow_B"><img src="/${res}/images/left1.jpg" alt="上一个" /></a> </div>
+          <div class="picmidmid">
+            <ul>
+            [#list content.pictures as p]
+              <li><a href="javascript:void(0);"><img src="${p.imgPath!}" alt="" bigimg="${p.imgPath!}" text="${p.description!}" /></a></li>
+            [/#list]
+            </ul>
+          </div>
+          <div class="picmidright"> <a href="javascript:void(0)" id="nextArrow_B"><img src="/${res}/images/right1.jpg" alt="下一个" /></a> </div>
+        </div>
+        <!--下一张图库新闻-->
+        <div class="picshowlist_right">
+          [@cms_content id=content.id next='0' channelId=channel.id]
+          [#if tag_bean??]
+          <div class="picleftimg"> <a href="${tag_bean.url}"><img src="${tag_bean.typeImg!}" /></a> </div>
+          <div class="piclefttxt"> <a href="${tag_bean.url}">${tag_bean.title}</a> </div>
+          [#else]
+          <div class="picleftimg"> <a><img src="/${res}/images/no-pic.png" /></a> </div>
+          <div class="piclefttxt"> <a>没有了</a> </div>
+          [/#if]
+          [/@cms_content]
+        </div>
+      </div>
+      [#else]    
+            <dd class="msg">尚未添加图集图片！</div>		
+       [/#if]
+    </div>
+  </div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

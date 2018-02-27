@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="member-con">
+  <div class="m-pos"><a href="${base}/">首页</a> > <span>会员中心</span></div>
+  <div class="member clearfix">
+    <div class="memberLeft clearfix"> 
+      <div class="member-nav">
+        <ul>
+        <li><a href="${base}/member/index.jspx">个人资料</a></li>
+        <li><a href="${base}/member/contribute_list.jspx">投稿管理</a></li>
+        <li><a href="${base}/member/resume.jspx">应聘管理</a></li>
+        <li><a href="${base}/member/mycomments.jspx">我的评论</a></li>
+        <li><a href="${base}/member/myguestbook.jspx">我的留言</a></li>
+        <li><a href="${base}/member/collection_list.jspx">我的收藏</a></li>
+        <li><a href="${base}/member/message_mng.jspx">站内信息</a></li>
+        <li><a href="${base}/member/account.jspx" class="on">服务中心</a></li>
+        </ul>
+      </div>
+      <div class="member-main">
+        <div class="member-child"><a href="${base}/member/account.jspx">完善账户资料</a><a href="${base}/member/buy_list.jspx">消费记录</a><a href="${base}/member/order_list.jspx">我的订单</a><a href="${base}/member/charge_list.jspx">收益统计</a><a href="${base}/member/draw_list.jspx">提现申请</a><a href="${base}/member/weixin_auth_enter.jspx" class="on">微信授权</a></div>
+        <div class="member-text tggl">
+          <div class="wxsq"><img src="${base}/special/o_create_dimensioncode.jspx?content=${url!}"></div>
+        </div>
+      </div>
+    </div>
+    [#include "../include/member-right.html" /]
+    <div class="m-sj"></div>
+  </div>
+</div>
+[#include "../include/footer.html"/]
+</body>
+</html>

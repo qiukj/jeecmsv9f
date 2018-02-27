@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.cms.entity.main">
+	<class
+		name="ContentCharge"
+		table="jc_content_charge"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		
+		<id name="id" type="java.lang.Integer" column="content_id">
+			<generator class="foreign"><param name="property">content</param></generator>
+		</id>
+		<property
+			name="chargeAmount"
+			column="charge_amount"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property
+			name="totalAmount"
+			column="total_amount"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property
+			name="yearAmount"
+			column="year_amount"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property
+			name="monthAmount"
+			column="month_amount"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property
+			name="dayAmount"
+			column="day_amount"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property
+			name="chargeReward"
+			column="charge_reward"
+			type="java.lang.Short"
+			not-null="true"
+			length="1"
+		/>
+		<property
+			name="rewardRandomMin"
+			column="reward_random_min"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property
+			name="rewardRandomMax"
+			column="reward_random_max"
+			type="java.lang.Double"
+			not-null="true"
+			length="11"
+		/>
+		<property name="lastBuyTime" column="last_buy_time" type="timestamp" not-null="false" length="19"/>
+		<property name="rewardPattern" column="reward_pattern" type="java.lang.Boolean" not-null="true" length="1"/>
+		<one-to-one name="content" class="com.jeecms.cms.entity.main.Content" constrained="true"/>
+
+	</class>	
+</hibernate-mapping>

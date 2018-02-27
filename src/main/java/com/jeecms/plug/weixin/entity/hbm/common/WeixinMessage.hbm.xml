@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.jeecms.plug.weixin.entity">
+	<class
+		name="WeixinMessage"
+		table="jg_weixinmessage"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id name="id" type="java.lang.Integer" column="wm_id"><generator class="identity"/></id>
+
+		<property
+			name="number"
+			column="wm_number"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="title"
+			column="wm_title"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="path"
+			column="wm_path"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="url"
+			column="wm_url"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="content"
+			column="wm_content"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="welcome"
+			column="is_welcome"
+			type="java.lang.Boolean"
+			not-null="true"
+		/>
+		<property
+			name="type"
+			column="wm_msg_type"
+			type="integer"
+			not-null="true"
+			length="1"
+		/>
+		<many-to-one
+			name="site"
+			column="site_id"
+			class="com.jeecms.core.entity.CmsSite"
+			not-null="true"
+		>
+		</many-to-one>
+
+	</class>	
+</hibernate-mapping>

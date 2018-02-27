@@ -1,0 +1,89 @@
+package com.jeecms.cms.action.directive.abs;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.jeecms.cms.manager.assist.CmsCommentMng;
+import com.jeecms.common.web.freemarker.DirectiveUtils;
+
+import freemarker.template.TemplateDirectiveModel;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+
+/**
+ * 评论标签基类
+ * 
+ */
+public abstract class AbstractCmsCommentDirective implements
+		TemplateDirectiveModel {
+
+	/**
+	 * 输入参数，内容ID。
+	 */
+	public static final String PARAM_CONTENT_ID = "contentId";
+	/**
+	 * 输入参数，父ID。
+	 */
+	public static final String PARAM_PARENT_ID = "parentId";
+	/**
+	 * 输入参数，支持大于多少。
+	 */
+	public static final String PARAM_GREATER_THEN = "greaterThen";
+	/**
+	 * 输入参数，是否审核。
+	 */
+	public static final String PARAM_CHECKED = "checked";
+	/**
+	 * 输入参数，是否推荐。
+	 */
+	public static final String PARAM_RECOMMEND = "recommend";
+	/**
+	 * 输入参数，排列顺序。0：按评论时间降序；1：按评论时间升序。默认降序。
+	 */
+	public static final String PARAM_ORDER_BY = "orderBy";
+
+	protected Integer getContentId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_CONTENT_ID, params);
+	}
+	
+	protected Integer getParentId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_PARENT_ID, params);
+	}
+
+	protected Integer getGreaterThen(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_GREATER_THEN, params);
+	}
+
+	protected Short getChecked(Map<String, TemplateModel> params)
+			throws TemplateException {
+		if (DirectiveUtils.getBool(PARAM_CHECKED, params)) {
+			return (short)1;
+		}else{
+			return (short)0;
+		}
+	}
+
+	protected boolean getRecommend(Map<String, TemplateModel> params)
+			throws TemplateException {
+		Boolean recommend = DirectiveUtils.getBool(PARAM_RECOMMEND, params);
+		return recommend != null ? recommend : false;
+	}
+
+	protected boolean getDesc(Map<String, TemplateModel> params)
+			throws TemplateException {
+		Integer orderBy = DirectiveUtils.getInt(PARAM_ORDER_BY, params);
+		if (orderBy == null || orderBy == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Autowired
+	protected CmsCommentMng cmsCommentMng;
+
+}

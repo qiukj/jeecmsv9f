@@ -1,0 +1,63 @@
+[@cms_vote id="#{id}"]
+	[#if !tag_bean??]
+<div>没有找到该调查</div>
+[#else]
+<div> 
+<form name="votes" action="${base}/vote.jspx" method="post" target="_blank">
+  <div width="100%" height="99%" border="0" cellspacing="5" cellpadding="0">
+    <div>
+        <b>< ${tag_bean.title?html} ><b>
+        <input type="hidden" name="voteId" value="${tag_bean.id}"/></td>
+    </div>
+    <div>
+     ${tag_bean.description?html}
+    </div>
+    [#list tag_bean.subtopics as subTopic]
+    <div>
+      <div height="30">
+      <span style="color:#1c77ba;"><span  class="subTopicIndex">${subTopic_index+1}</span>、${subTopic.title?html}</span>
+      </div>
+    </div>
+    	[#if subTopic.isRadio]
+			 <div>
+	    		[#list subTopic.voteItems as item]
+	    			<input type="radio" name="itemIds${subTopic.id}" value="${item.id}"/><span class="itemIndex">${item_index+1}</span>.${item.title?html}
+				[/#list]
+			</div>
+		[/#if]
+		[#if subTopic.isMulti]
+			<div>
+				<div height="30">
+					[#list subTopic.voteItems as item]
+				      <input type="checkbox" name="itemIds${subTopic.id}" value="${item.id}"  id="${item.id}"/><span class="item2Index">${item_index+1}</span>.${item.title?html}
+				    [/#list]
+			    </div>
+			</div>
+		[/#if]
+		[#if subTopic.isText]
+			<div>
+				<div height="30">
+					<input name="reply" type="text"/>
+				</div>
+			 </div>
+		[/#if]
+		 <input name=subIds type="hidden" value="${subTopic.id}"/>
+    [/#list]
+    <div>
+      <input type="submit" value="投 票"/>
+      &nbsp; <a href="${base}/vote_result.jspx?voteId=${tag_bean.id}" target="_blank">查看投票结果</a> 
+    </div>
+  </div>
+</form>
+</div>
+[/#if]
+[/@cms_vote]	
+<script type="text/javascript">
+$(function(){
+ 	var height=$("form[name='votes']").parent().parent().css("height");
+ 	var width=$("form[name='votes']").parent().parent().css("width");
+ 	divWidth=width.substring(0,width.indexOf("px"))-20+"px";
+	divHeight=height.substring(0,height.indexOf("px"))-20+"px";
+ 	$("form[name='votes']").parent().css("height",divHeight).css("width",divWidth);
+ });
+</script>

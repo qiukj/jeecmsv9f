@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${site.name} - Powered by JEECMS</title>
+<meta http-equiv="keywords" content="${site.keywords!}"/>
+<meta http-equiv="description" content="${site.description!}"/>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<head>
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <section class="content_w850">
+    <h1>专题专栏<a class="position" href="${base}/news/index.jhtml">新闻</a></h1>
+    <div class="content-txt">
+      [@cms_topic_page count='10' descLen='100' append='...']
+      [#list tag_pagination.list as t]
+      <div class="topic-item clearfix">
+        <div class="topic-item-img"><a href="${base}/topic/${t.id}.jspx" target="_blank"><img src="${t.titleImg!site.defImg}"></a></div>
+        <div class="topic-item-title"><a href="${base}/topic/${t.id}.jspx" target="_blank">${t.name}</a></div>
+        <div class="topic-item-des">[@text_cut s=t.description len=descLen append=append/]</div>
+      </div>
+      [/#list]
+      [#include "../include/page.html"/]
+      [/@cms_topic_page]
+    </div>
+  </section>
+  [#include "../include/right310.html"/]
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

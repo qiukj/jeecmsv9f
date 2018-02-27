@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>职位搜索列表 - ${site.name} - Powered by JEECMS</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<head>
+
+<body style="background-color:#f9f9f9;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="main container job clearfix"> 
+  <div class="job_main">
+    <section class="job_banner"><img src="/${res}/images/job_banner.jpg"></section>
+    <section class="job_search">
+      <form action="${base}/searchJob.jspx" target="_self">
+      [@cms_model id="8"]
+      [#list tag_bean.items as item]
+      [#if item.field=="category"]
+        [#assign category=item.optValue/]
+      [#elseif item.field=="workplace"]
+        [#assign workplace=item.optValue/]
+      [/#if]
+      [/#list]
+      <select class="job_select" name="category">
+      <option value= "" >请选择职位</option>
+      [#list category!?split(",") as opt]
+        <option value="${opt!}" [#if queryCategory??][#if queryCategory=="${opt}"]selected="selected"[/#if][/#if]>${opt!}</option>
+      [/#list]
+      </select>
+      <select class="job_select" name="workplace">
+      <option value= "" >请选择工作地点</option>
+      [#list workplace!?split(",") as opt]
+        <option value="${opt!}"[#if queryWorkplace??][#if queryWorkplace=="${opt}"]selected="selected"[/#if][/#if]>${opt!}</option>
+        [/#list]
+      </select>
+         [/@cms_model]
+      <input class="job_searchCon" name="q" type="text" value="${q!}" id="txtKey" placeholder="网页设计" autocomplete="off" />
+      <input type="hidden" name="token"  value="${token!}" />
+      <input class="job_searchMenu" type="submit" value="职位搜索" />
+      </form>
+    </section>
+    <section class="job_list">
+      [#if q??]
+      [@cms_lucene_page q=q category=queryCategory workplace=queryWorkplace channelId='79' count="10" titLen="25" descLen='50' append='...' dateFormat="yyyy-MM-dd"]
+      <table cellpadding="0" cellspacing="0" width="100%">
+        <tbody>
+          <tr class="job_list_menu">
+            <td width="30%">招聘职位</td>
+            <td width="30%">企业名称</td>
+            <td>工作地点</td>
+            <td>招聘人数</td>
+            <td>发布时间</td>
+          </tr>
+           [#list tag_list as content]
+          <tr>
+            <td width="30%" class="job_name"><a href="${content.url}">${content.title}</a></td>
+            <td width="30%">${content.companyName!}</td>
+            <td>${content.attr.workplace!}</td>
+            <td>${content.attr.nums!}</td>
+            <td>${content.date?string(dateFormat)}</td>
+          </tr>
+           [/#list]
+        </tbody>
+      </table>
+      [#include "../include/page.html"/]
+      [/@cms_lucene_page]
+      [/#if]
+    </section>
+  </div>
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

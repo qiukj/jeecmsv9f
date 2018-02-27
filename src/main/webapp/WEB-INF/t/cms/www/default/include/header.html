@@ -1,0 +1,54 @@
+<link rel="stylesheet" type="text/css" href="/${res}/css/login.css" />
+<script>
+function qkeypress(){
+	var q=$("input[name=q]");
+	if(q.val().trim()!=""){
+		$("input[name=q]").autocomplete("enable");
+	}else{
+		$("input[name=q]").autocomplete("disable");
+	}
+}
+function query(){
+	$.post("${base}/createToken.jspx", {}, function(data) {
+		$("#token").val(data.token);
+		$("#searchForm").submit();
+	}, "json");
+}
+$(function() {
+	$("input[name='q']").bind('keypress',function(event){
+	    if(event.keyCode == 13)     
+	    {  
+	    	event.preventDefault();
+	    	query();
+	    }  
+	});
+});
+</script>
+<header class="header rel">
+  <div class="header-jf"><a class="jf-btn" name="gb2big5" id="gb2big5">繁</a></div>
+  <Script Language=Javascript Src="${resSys}/gb2big5.js"></Script>
+  <div class="header-rss"><a class="rss-btn" href="${base}/rss.jspx" target="_blank" title="RSS订阅">RSS</a></div>
+  <div class="header-tag"><a class="tag-btn" href="${base}/tag.jspx" target="_blank" title="Tags标签">Tags</a></div>
+  <div class="container clearfix">
+    <a class="logo" href="${base}/"></a>
+    [#include "../include/nav.html"]
+    <div class="header-r">     
+      <div class="search">
+        <form action="${base}/search.jspx" target="_blank" name="searchForm" id="searchForm">
+        <input type="text" name="q" value="${oldq!}"   maxlength="50" autocomplete="off" class="searchCon" style="width:202px;">
+        <input type="hidden" name="token" id="token" value="${token!}" />
+        <input type="button" value="" class="searchMenu" onclick="query()" >
+        </form>
+      </div>      
+      <div id="loginCsiDiv" style="float:left;"></div>
+	  <script type="text/javascript">
+		$(function(){
+			[#if site.config.ssoEnable]
+			Cms.loginSSO('${base}');
+			[/#if]
+			Cms.loginCsi("${base}","loginCsiDiv",{"returnUrl":"${location}"});
+		});
+	   </script>
+    </div> 
+  </div>
+</header>

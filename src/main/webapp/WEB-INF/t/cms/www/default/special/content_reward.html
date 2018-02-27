@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${site.name} - Powered by JEECMS</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script  type="text/javascript">
+function randomReward(){
+	$.get("${base}/reward/random.jspx", {
+	}, function(data) {
+		$("#rewardAmount").val(data);
+	});
+}
+$(function() {
+	<!--打赏-->
+	[#if type??&&type==2]
+		[#if rewardAmount??]
+			$("#wcode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=1&chargeReward=${type!}&rewardAmount=${rewardAmount!}");
+			$("#acode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=4&chargeReward=${type!}&rewardAmount=${rewardAmount!}");
+		[#else]
+			<!--随机直接生成二维码或者选择了某项固定值-->
+			[#if !content.rewardPattern]
+			$("#wcode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=1&chargeReward=${type!}&rewardAmount=${randomOne!}");
+			$("#acode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=4&chargeReward=${type!}&rewardAmount=${randomOne!}");
+			[/#if]
+		[/#if]
+	[#else]
+	$("#wcode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=1&chargeReward=${type!}");
+	$("#acode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=4&chargeReward=${type!}");
+	[/#if]
+});
+function changeAmountSubmit(value){
+	$("#rewardAmount").val(value);
+	$("#jvForm").submit();
+}
+</script>
+<style>
+.reward-btn{float:left; box-sizing:boder-box; cursor:pointer; width:50%; background-color:#e7e7e7; color:#000; line-height:44px; margin-top:30px; font-size:18px;}
+.br{border-right:8px solid #fff;}
+.bl{border-left:8px solid #fff;}
+.reward-btn:hover{background-color:#38afe7; color:#ffffff;}
+.reward-payBtn{width:100%; cursor:pointer; background-color:#38afe7; color:#ffffff; -webkit-box-sizing:boder-box; line-height:44px; margin-top:30px; font-size:16px;}
+</style>
+<head>
+
+<body style="background-color:#f7f7f7;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="register-box" style="height:366px;"> 
+  <div class="register-nav"><span>打赏</span>
+    <div class="register-login">
+    [#if content.chargeModel==2]<a class="tc" href="${base}/content/orders.jspx?contentId=${content.id}&type=2">打赏记录 ></a>
+    [#elseif content.chargeModel==1]<a class="tc" href="${base}/content/orders.jspx?contentId=${content.id}&type=1">收费记录 ></a>
+    [/#if]
+    </div>
+  </div> 
+  <!-- 未选择固定打赏值 -->
+  <div style="width:100%; margin-top:20px;">
+  [#if !rewardAmount??]
+	  [#if content.rewardPattern]
+	  <!-- 固定 -->
+	  <form method="post" action="${base}/content/fixSelect.jspx" id="jvForm">
+		<input name="contentId" value="${contentId!}" type="hidden" /> 
+		<input name="orderNumber" value="${orderNumber!}" type="hidden" /> 
+		<input name="chargeReward" value="${type!}" type="hidden" />
+		<input name="rewardAmount" value="${randomOne!}" id="rewardAmount" type="hidden" />
+		<div>
+		[#list content.rewardFixValues as r]
+		<input value="${r!}" type="button" onclick="changeAmountSubmit('${r!}')" 
+			[#if (r_index+1)%2=1]class="reward-btn br"[#else]class="reward-btn bl" [/#if]/> 
+		[/#list]
+		</div>
+		<input type="submit" value="打赏" class="reward-payBtn" />
+	  </form>
+	  [#else]
+	  <!-- 随机 -->
+	  <div class="reward-money">金额： <span>[#if type??&&type==2]${randomOne!}[#else]${content.chargeAmount!}[/#if]</span></div>
+	  <div class="reward-pay">支付方式</div>
+	  <div class="reward-paylist"><div><span id="wcode"></span>微信扫码支付</div><div><span id="acode"></span>支付宝扫码支付</div></div>
+	  [/#if]
+  [#else]
+      <div class="reward-money">金额： <span>[#if type??&&type==2]${rewardAmount!}[#else]${content.chargeAmount!}[/#if]</span></div>
+	  <div class="reward-pay">支付方式</div>
+	  <div class="reward-paylist"><div><span id="wcode"></span>微信扫码支付</div><div><span id="acode"></span>支付宝扫码支付</div></div>
+  [/#if]
+  </div>
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

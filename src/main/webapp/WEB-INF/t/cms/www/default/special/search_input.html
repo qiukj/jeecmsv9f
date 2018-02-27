@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>全文检索列表 - ${site.name} - Powered by JEECMS</title>
+<link href="${resSys}/front.css" rel="stylesheet" type="text/css"/>
+<link href="${resSys}/jqueryUI/jquery.ui.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="/${res}/js/common.js" type="text/javascript"></script>
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+[#include "../include/top.html"/]
+[#include "../include/header.html"/]
+<div class="main container clearfix">
+  <section class="content_w850">
+    [#if q??]
+    [@cms_lucene_page q=q channelId=channelId startDate=startDate endDate=endDate descLen='170' append='...' count='10' ]
+    <div class="searchNav">您搜索的“<span>${input!}</span>”， 共有<span>${tag_pagination.totalCount!}</span>个结果</div>
+    <div class="searchList">
+      [#list tag_list as s]
+      <div class="item">
+        <div class="search-title"><a href="${s.url}" title="${s.title}" target="_blank">${s.title?replace('${q!}', "<span>${q!}</span>")}</a></div>
+        [#if s.txt??]
+        <div class="search-txt">
+          [#assign bb=s.txt?replace("<(S*?)[^>]*>.*?|<.*? />","","ri")?replace("&nbsp;","","ri")/]
+          [@text_cut s=bb?replace('${q!}', "<span style='color: red;'>${q!}</span>") len=descLen append=append/]
+        </div>
+        [/#if]
+        <div class="search-date"><a href="${s.ctgUrl}" target="_blank">${s.ctgName}</a><em>${s.releaseDate}</em>浏览 <span>${s.views}</span></div>
+      </div>
+      [/#list]
+       [#include "../include/page.html"/]
+    </div>
+ 
+     [/@cms_lucene_page]	  
+     [/#if]
+  </section>
+  [#include "../include/right310.html"/]
+</div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>

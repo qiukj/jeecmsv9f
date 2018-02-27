@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户绑定</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<link type="text/css" rel="stylesheet" href="/${res}/css/index.css" />
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+$(function() {
+	$("#bindForm").validate();
+	$("#bindNewForm").validate();
+	//正确绑定用户返回
+	[#if success??&& success]
+	  [#if source??]
+		[#if source="QQ"]
+			//qq授权窗口需要手动关闭，父窗口重新加载
+	  		opener.location.reload();
+            window.close();	
+		[#elseif source="SINA"]
+			//新浪授权窗口会自动关闭
+		    location="${base}/";
+		[#elseif source="QQWEBO"]
+		  		opener.location.reload();
+	            window.close();	
+                  [#elseif source="WEIXIN"]
+			location="${base}/";
+		  [/#if]
+		[/#if]
+    [/#if]
+});
+</script>
+
+</head>
+
+<body style="background-color:#f7f7f7;">
+[#include "../include/top.html"/]
+[#include "../include/header.html"/] 
+<div class="register-box login-box">   
+  <div class="register-nav"><span>用户绑定</span></div> 
+      [#if errors??]
+      <div class="inf-message" style="right:55px; top:92px;">		
+ 	 <div class="error-message">
+   [#list errors as error] ${error}[/#list]
+     </div>	
+  </div>
+   [/#if]
+<form id="bindForm" action="${base}/public_bind.jspx" method="post">
+   <div class="bind-now">绑定现有账户</div>
+   <div class="register-list bind-list">
+    <ul>
+      <li><span>用户名</span><input type="text" id="username" name="username" class="register-input" /></li>
+      <li><span>密码</span><input type="password" id="password" name="password" class="register-input" /></li>
+      <li class="register-btn"><input type="submit" id="submit" value="绑定 " class="login-button bind-bd"/></li>
+    </ul>
+  </div>
+</form>
+<div class="bind-line"></div>
+<form id="bindNewForm" action="${base}/public_bind_username.jspx" method="post">
+   <div class="bind-now" style="color:#ef3838; margin-top:30px;">指定新用户名</div>
+   <div class="register-list bind-list">
+    <ul>
+      <li><span>用户名</span><input type="text" name="username" class="register-input" /></li>
+      <input name="nickname" value="${nickname!}" type="hidden"/>
+      <input name="sex" value="${sex!}" type="hidden"/>
+      <input name="province" value="${province!}" type="hidden"/>
+      <input name="city" value="${city!}" type="hidden"/>
+      <input name="headimgurl" value="${headimgurl!}" type="hidden"/>
+      <li class="register-btn"><input type="submit" id="newuser" value="登录 " class="login-button"/></li>
+    </ul>
+  </div>
+</form>
+  </div>
+[#include "../include/footer.html"/]
+[#include "../include/right-fixed.html"/]
+</body>
+</html>
