@@ -35,13 +35,13 @@
 	</bean>
 	<bean id="spiderJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="spiderJobDetail" />
-		<property name="cronExpression" value="0 42 18 * * ?" />
+		<property name="cronExpression" value="0 30 18 * * ?" />
 	</bean>
 	<!-- 调度器 -->
     <bean name="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
        <!-- 通过applicationContextSchedulerContextKey属性配置spring上下文 -->    
         <property name="applicationContextSchedulerContextKey">    
-            <value>applicationContext</value>    
+            <value>applicationContext</value>
         </property>   
         <property name="triggers">  
 			<list>   

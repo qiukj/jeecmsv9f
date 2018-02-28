@@ -1,15 +1,6 @@
 package com.jeecms.common.upload;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -148,7 +139,7 @@ public class FileUpload {
 	
 	
 	/** 
-	 * @param fileName 图片路径 
+	 * @param filePath 图片路径
 	 */  
 	public static String uploadFileWithHttpMime(
 			Integer siteId,String type,Boolean mark,

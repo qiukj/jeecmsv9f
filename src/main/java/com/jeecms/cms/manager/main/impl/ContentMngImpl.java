@@ -369,7 +369,7 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		if(charge==null){
 			charge=ContentCharge.MODEL_FREE;
 		}
-		saveContent(bean, ext, txt,channelId, typeId, draft, contribute,user,forMember);
+		saveContentYP(bean, ext, txt,channelId, typeId, draft, contribute,user,forMember);
 		// 保存副栏目
 		if (channelIds != null && channelIds.length > 0) {
 			for (Integer cid : channelIds) {
@@ -472,6 +472,36 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 //				bean.setStatus(ContentCheck.CHECKING);
 //			}
 //		}
+		bean.setStatus(ContentCheck.CHECKED);
+		// 是否有标题图
+		bean.setHasTitleImg(!StringUtils.isBlank(ext.getTitleImg()));
+		bean.init();
+		// 执行监听器
+		preSave(bean);
+		dao.save(bean);
+		contentExtMng.save(ext, bean);
+		contentTxtMng.save(txt, bean);
+		ContentCheck check = new ContentCheck();
+		check.setCheckStep(userStep);
+		contentCheckMng.save(check, bean);
+		contentCountMng.save(new ContentCount(), bean);
+		return bean;
+	}
+	private Content saveContentYP(Content bean, ContentExt ext, ContentTxt txt,Integer channelId,
+								Integer typeId,Boolean draft, Boolean contribute,CmsUser user,boolean forMember){
+		Channel channel = channelMng.findById(channelId);
+		bean.setChannel(channel);
+		bean.setType(contentTypeMng.findById(typeId));
+		bean.setUser(user);
+		Byte userStep;
+		if (forMember) {
+			// 会员的审核级别按0处理
+			userStep = 0;
+		} else {
+			CmsSite site = bean.getSite();
+			userStep = user.getCheckStep(site.getId());
+		}
+
 		bean.setStatus(ContentCheck.CHECKED);
 		// 是否有标题图
 		bean.setHasTitleImg(!StringUtils.isBlank(ext.getTitleImg()));

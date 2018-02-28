@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeecms.common.upload.FileUtil;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -73,7 +74,8 @@ import net.sf.json.JSONObject;
 @Controller
 public class ContentApiAct {
 	private static final Logger log = LoggerFactory.getLogger(ContentApiAct.class);
-	
+	@Autowired
+	private ContentMng contentMng;
 	@RequestMapping("/content/tree")
 	public void tree(String root, Integer https,HttpServletRequest request,
 			HttpServletResponse response){
@@ -449,11 +451,44 @@ public class ContentApiAct {
 				if (modelId!=null) {
 					bean.setModel(modelMng.findById(modelId));
 				}
-				bean = manager.save(bean, ext, txt, channelArr,topicArr, viewGroupArr, tagArr,
+
+
+				if(!ext.getTitle().equals("123")){
+						bean = manager.save(bean, ext, txt, channelArr,topicArr, viewGroupArr, tagArr,
 						pathArr, nameArr, filenameArr, picPathArr,picDesArr, channelId,
 						typeId, draft, false,charge,
 						chargeAmount,rewardPattern, rewardRandomMin, rewardRandomMax,
 						 rewardArr,user,false);
+				}else{
+					try {
+						FileUtil.uploadImgLW(null,"jiaju","1");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+//					ext = new ContentExt();
+//					ext.setTitle("1111111111");
+//					ext.setTypeImg("/u/cms/");
+//					user = new CmsUser();
+//					user = cmsUserMng.findByUsername("admin");
+//					String[] array = new String[1];
+//					String[] pics=null;//pictures.toArray(array);
+//					bean = new Content();
+//					site = new CmsSite();
+//					site.setDomain("localhost");
+//					site.setPath("www");
+//					site.setIndexToRoot(false);
+//					site.setStaticIndex(false);
+//					site.setTplSolution("default");
+//					site.setFinalStep((byte) 3);
+//					site.setAfterCheck((byte)3);
+//					site.setRelativePath(false);
+//					site.setResycleOn(true);
+//
+//
+//					bean.setSite(site);
+//					contentMng.savePY(bean,ext,null,null,null,null,null,null,null,null,pics,null,76,2,false,null,null,null,false,0.0,10.0,null,user,true);
+
+				}
 				fileMng.updateFileByPaths(pathArr,picPathArr,ext.getMediaPath(),ext.getTitleImg(),ext.getTypeImg(),ext.getContentImg(),true,bean);
 				log.info("save Content id={}", bean.getId());
 				cmsLogMng.operating(request, "content.log.save", "id=" + bean.getId()
